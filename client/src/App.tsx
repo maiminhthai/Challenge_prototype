@@ -1,35 +1,61 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import React, { useState, useEffect } from 'react';
+import io from 'socket.io-client';
+import './App.css';
 
-function App() {
-  const [count, setCount] = useState(0)
 
-  return (
-    <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  )
+interface ChatMessage {
+  user: string;
+  text: string;
 }
 
-export default App
+const socket = io('http://localhost:5000');
+
+const App: React.FC = () => {
+
+  const [messages, setMessages] = useState<ChatMessage[]>([]);
+  const [input, setInput] = useState<string>('');
+
+  useEffect(() => {
+    socket.on('message', (message: ChatMessage) => {
+      setMessages((prevMessages) => [...prevMessages, message]);
+    });
+
+    return () => {
+      socket.off('message');
+    };
+  }, []);
+
+  const sendMessage = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (input.trim()) {
+      socket.emit('send_message', { text: input });
+      setMessages((prevMessages) => [...prevMessages, { user: 'You', text: input }]);
+      setInput('');
+    }
+  };
+
+  return (
+    <div className='container'>
+      <h2>Real-Time Chatbot</h2>
+      <div className='chat-box' style={{ overflowY: 'scroll'}}>
+        {messages.map((msg, index) => (
+          <div key={index}>
+            <strong>{msg.user}:</strong> {msg.text}
+          </div>
+        ))}
+      </div>
+      <form onSubmit={sendMessage} id='text-form'>
+        <input
+          className='chat-messages'
+          type="text"
+          value={input}
+          onChange={(e) => setInput(e.target.value)}
+          placeholder="Type a message..."
+        />
+        <button type="submit">Send</button>
+      </form>
+    </div>
+  );
+};
+
+export default App;

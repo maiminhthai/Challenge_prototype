@@ -1,29 +1,54 @@
-from flask import Flask, request, make_response
+from flask_socketio import SocketIO, emit
+from flask import Flask, request, make_response, jsonify
+from flask_cors import CORS
 
 app = Flask(__name__)
+app.config['SECRET_KEY'] = 'your_secret_key'
+cors = CORS(app, resources={r"/*": {"origins": "*"}})
+socketio = SocketIO(app, cors_allowed_origins="*")
 
-@app.route("/")
-def index():
-    return "<h1>Hello from server!</h1>"
+# --- Chatbot Logic ---
+def get_chatbot_response(message):
+    """A very simple function to simulate a chatbot response."""
+    if "hello" in message.lower() or "hi" in message.lower():
+        return "Hello! How can I help you today?"
+    elif "time" in message.lower():
+        import datetime
+        return f"The current time is {datetime.datetime.now().strftime('%H:%M:%S')}."
+    else:
+        return "I'm just a simple bot. Try saying 'hello' or asking for the 'time'."
 
-@app.route("/hello")
-def hello():
-    return "<h1>Hello</h1>"
+# --- SocketIO Events ---
+@socketio.on('connect')
+def handle_connect():
+    """Handles new client connections."""
+    print('Client connected')
+    emit('message', {'user': 'System', 'text': 'Welcome to the Chatbot!'}, broadcast=False)
+    # Automatically send the first bot message
+    emit('message', {'user': 'Bot', 'text': 'I am your real-time chat bot.'}, broadcast=False)
 
-@app.route("/greeting/<name>")
-def greeting(name):
-    return f"<h1>Greeting, {name}!</h1>"
+@socketio.on('disconnect')
+def handle_disconnect():
+    """Handles client disconnections."""
+    print('Client disconnected')
 
-@app.route("/add/<int:number1>/<int:number2>")
-def add(number1, number2):
-    result = number1+number2
-    return f"{number1} + {number2} = {result}"
+@socketio.on('send_message')
+def handle_user_message(data):
+    """
+    Handles a message sent from the React client.
+    'data' is expected to be {'text': 'user message content'}
+    """
+    user_message = data.get('text', '')
+    print(f"Received message: {user_message}")
 
-@app.route("/handle_url_params")
-def handle_url_params():
-    param1 = request.args.get("param1", "default1")
-    param2 = request.args.get("param2", "default2")
-    return f"Param1: {param1}, Param2: {param2}"
+    # 2. Get the bot's response
+    bot_response = get_chatbot_response(user_message)
+    print(f"Bot response: {bot_response}")
 
-if __name__ == "__main__":
-    app.run(host="0.0.0.0", debug=True)
+    # 3. Send the bot's response back to the user
+    emit('message', {'user': 'Bot', 'text': bot_response}, broadcast=False)
+
+
+#--- Run Server ---
+if __name__ == '__main__':
+    socketio.run(app, debug=True)
