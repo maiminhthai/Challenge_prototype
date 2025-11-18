@@ -1,7 +1,7 @@
 from flask_socketio import SocketIO, emit
-from flask import Flask, request, make_response, jsonify
+from flask import Flask
 from flask_cors import CORS
-from agents.orchestrator_agent import agent, config
+from agents.workflow import agent, config
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'your_secret_key'
@@ -32,7 +32,7 @@ def handle_user_message(data):
     print(f"Received message: {user_message}")
 
     # 2. Get the bot's response
-    bot_response =agent.invoke({"messages": [{"role": "user", "content": user_message}]}, config=config)
+    bot_response =agent.invoke({"messages": {"role": "user", "content": user_message}}, config=config)
     print(f"Bot response: {bot_response['messages'][-1].content}")
 
     # 3. Send the bot's response back to the user
