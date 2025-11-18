@@ -1,25 +1,18 @@
 from flask_socketio import SocketIO, emit
-from flask import Flask
+from flask import Flask, request, make_response, jsonify
 from flask_cors import CORS
-<<<<<<< HEAD
-=======
->>>>>>> parent of 6bbbfd8 (18/11/2025)
+from my_agents.orchestrator_agent import triage_agent
+from agents import Runner
+from my_agents.workflow import agent, config
+
+from dotenv import load_dotenv
+# --- Load Environment Variables ---
+load_dotenv()
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'your_secret_key'
 cors = CORS(app, resources={r"/*": {"origins": "*"}})
-socketio = SocketIO(app, cors_allowed_origins="*")
-
-# --- Chatbot Logic ---
-def get_chatbot_response(message):
-    """A very simple function to simulate a chatbot response."""
-    if "hello" in message.lower() or "hi" in message.lower():
-        return "Hello! How can I help you today?"
-    elif "time" in message.lower():
-        import datetime
-        return f"The current time is {datetime.datetime.now().strftime('%H:%M:%S')}."
-    else:
-        return "I'm just a simple bot. Try saying 'hello' or asking for the 'time'."
+socketio = SocketIO(app, cors_allowed_origins="*", async_handlers=True)
 
 # --- SocketIO Events ---
 @socketio.on('connect')
@@ -45,15 +38,14 @@ def handle_user_message(data):
     print(f"Received message: {user_message}")
 
     # 2. Get the bot's response
-<<<<<<< HEAD
-
-=======
-    bot_response = get_chatbot_response(user_message)
-    print(f"Bot response: {bot_response}")
->>>>>>> parent of 6bbbfd8 (18/11/2025)
+    bot_response = agent.ainvoke(
+        {"messages": [{"role": "user", "content": user_message}]},
+        config=config
+    )
+    print(f"Bot response: {bot_response['messages'][-1].content}")
 
     # 3. Send the bot's response back to the user
-    emit('message', {'user': 'Bot', 'text': bot_response}, broadcast=False)
+    emit('message', {'user': 'Bot', 'text': bot_response['messages'][-1].content}, broadcast=False)
 
 
 #--- Run Server ---
