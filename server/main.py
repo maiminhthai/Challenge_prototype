@@ -1,6 +1,7 @@
 from flask_socketio import SocketIO, emit
 from flask import Flask, request, make_response, jsonify
 from flask_cors import CORS
+from regex import R
 from my_agents.orchestrator_agent import triage_agent
 from agents import Runner
 from my_agents.workflow import agent, config
@@ -37,16 +38,12 @@ def handle_user_message(data):
     user_message = data.get('text', '')
     print(f"Received message: {user_message}")
 
-    # 2. Get the bot's response
-    bot_response = agent.ainvoke(
-        {"messages": [{"role": "user", "content": user_message}]},
-        config=config
-    )
-    print(f"Bot response: {bot_response['messages'][-1].content}")
+    # 2. Get the bot's response4
+    bot_response =  Runner.run_sync(triage_agent, user_message)
+    print(f"Bot response: {bot_response.final_output}")
 
     # 3. Send the bot's response back to the user
-    emit('message', {'user': 'Bot', 'text': bot_response['messages'][-1].content}, broadcast=False)
-
+    emit('message', {'user': 'Bot', 'text': bot_response.final_output}, broadcast=False)
 
 #--- Run Server ---
 if __name__ == '__main__':
