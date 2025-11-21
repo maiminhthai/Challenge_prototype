@@ -36,7 +36,7 @@ const App: React.FC = () => {
 
   return (
     <div className='container'>
-      <h2>Real-Time Chatbot</h2>
+      <h2>Car-Assistant</h2>
       <div className='chat-box' style={{ overflowY: 'scroll'}}>
         {messages.map((msg, index) => (
           <div key={index}>

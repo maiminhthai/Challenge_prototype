@@ -1,10 +1,8 @@
 from flask_socketio import SocketIO, emit
 from flask import Flask, request, make_response, jsonify
 from flask_cors import CORS
-from regex import R
-from my_agents.orchestrator_agent import triage_agent
+from my_agents.orchestrator_agent import orchestrator_agent
 from agents import Runner
-from my_agents.workflow import agent, config
 
 from dotenv import load_dotenv
 # --- Load Environment Variables ---
@@ -39,7 +37,7 @@ def handle_user_message(data):
     print(f"Received message: {user_message}")
 
     # 2. Get the bot's response4
-    bot_response =  Runner.run_sync(triage_agent, user_message)
+    bot_response =  Runner.run_sync(orchestrator_agent, user_message)
     print(f"Bot response: {bot_response.final_output}")
 
     # 3. Send the bot's response back to the user
