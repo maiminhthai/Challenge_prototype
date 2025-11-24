@@ -1,8 +1,14 @@
+from math import e
+import socket
 from flask_socketio import SocketIO, emit
 from flask import Flask, request, make_response, jsonify
 from flask_cors import CORS
 from my_agents.orchestrator_agent import orchestrator_agent
 from agents import Runner
+#import eventlet
+import asyncio
+
+#eventlet.monkey_patch()
 
 from dotenv import load_dotenv
 # --- Load Environment Variables ---
@@ -11,7 +17,14 @@ load_dotenv()
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'your_secret_key'
 cors = CORS(app, resources={r"/*": {"origins": "*"}})
-socketio = SocketIO(app, cors_allowed_origins="*", async_handlers=True)
+socketio = SocketIO(app, cors_allowed_origins="*")
+# socketio = SocketIO(app, 
+#                     cors_allowed_origins="*",
+#                     async_mode='eventlet',
+#                     allow_upgrades=True,
+#                     ping_timeout=50,
+#                     ping_interval=25
+#                     )
 
 # --- SocketIO Events ---
 @socketio.on('connect')
@@ -37,12 +50,20 @@ def handle_user_message(data):
     print(f"Received message: {user_message}")
 
     # 2. Get the bot's response4
-    bot_response =  Runner.run_sync(orchestrator_agent, user_message)
-    print(f"Bot response: {bot_response.final_output}")
+    try:
+        loop = asyncio.new_event_loop()
+        bot_response = loop.run_until_complete(
+            Runner.run(orchestrator_agent, user_message)
+        )
+        print(f"Bot response: {bot_response.final_output}")
+        # 3. Send the bot's response back to the user
+        emit('message', {'user': 'Bot', 'text': bot_response.final_output}, broadcast=False)
+    except RuntimeError:
+        print("RuntimeError: Event loop is closed")
+        emit('message', {'user': 'Bot', 'text': "Sorry, I'm having trouble responding right now."}, broadcast=False)
 
-    # 3. Send the bot's response back to the user
-    emit('message', {'user': 'Bot', 'text': bot_response.final_output}, broadcast=False)
 
 #--- Run Server ---
 if __name__ == '__main__':
     socketio.run(app, debug=True)
+
