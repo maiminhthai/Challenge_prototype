@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import io from 'socket.io-client';
 import './App.css';
 
@@ -14,14 +14,28 @@ const App: React.FC = () => {
 
   const [messages, setMessages] = useState<ChatMessage[]>([]);
   const [input, setInput] = useState<string>('');
+  const [isRecording, setIsRecording] = useState<boolean>(false);
+  const [status, setStatus] = useState<string>("Disconnected");
+  const mediaRecorderRef = useRef<MediaRecorder | null>(null);
+  const audioChunksRef = useRef<MediaStream | null>(null);
 
   useEffect(() => {
+    if (!socket) return;
+
+    socket.on('connect', () => {
+      setStatus("Connected");
+    });
+    socket.on('disconnect', () => {
+      setStatus("Disconnected");
+    });
     socket.on('message', (message: ChatMessage) => {
       setMessages((prevMessages) => [...prevMessages, message]);
     });
 
     return () => {
       socket.off('message');
+      socket.off('connect');
+      socket.off('disconnect');
     };
   }, []);
 
@@ -53,6 +67,13 @@ const App: React.FC = () => {
           placeholder="Type a message..."
         />
         <button type="submit">Send</button>
+        <button
+          onClick={isRecording ? stopRecording : startRecording}
+          disabled={status === 'Disconnected'}
+          style={{ backgroundColor: isRecording ? '#d9534f' : '#5cb85c', color: 'white', padding: '10px 20px', border: 'none', borderRadius: '5px' }}
+        >
+          {isRecording ? '🛑 Stop Streaming' : '🎙️ Start Streaming'}
+        </button>
       </form>
     </div>
   );

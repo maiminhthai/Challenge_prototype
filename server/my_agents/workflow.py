@@ -6,5 +6,5 @@ workflow = SingleAgentVoiceWorkflow(
     agent=orchestrator_agent,
 )
 
-voice_pipeline = VoicePipeline(workflow=workflow)
+voice_pipeline = VoicePipeline(workflow=workflow, stt_model='gpt-4o-mini-transcribe', tts_model='gpt-4o-mini-tts')
 
