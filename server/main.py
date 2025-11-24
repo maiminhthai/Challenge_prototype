@@ -5,10 +5,7 @@ from flask import Flask, request, make_response, jsonify
 from flask_cors import CORS
 from my_agents.orchestrator_agent import orchestrator_agent
 from agents import Runner
-#import eventlet
 import asyncio
-
-#eventlet.monkey_patch()
 
 from dotenv import load_dotenv
 # --- Load Environment Variables ---
@@ -18,13 +15,7 @@ app = Flask(__name__)
 app.config['SECRET_KEY'] = 'your_secret_key'
 cors = CORS(app, resources={r"/*": {"origins": "*"}})
 socketio = SocketIO(app, cors_allowed_origins="*")
-# socketio = SocketIO(app, 
-#                     cors_allowed_origins="*",
-#                     async_mode='eventlet',
-#                     allow_upgrades=True,
-#                     ping_timeout=50,
-#                     ping_interval=25
-#                     )
+
 
 # --- SocketIO Events ---
 @socketio.on('connect')
