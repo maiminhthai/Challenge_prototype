@@ -52,7 +52,7 @@ def handle_user_message(data):
     except RuntimeError:
         print("RuntimeError: Event loop is closed")
         emit('message', {'user': 'Bot', 'text': "Sorry, I'm having trouble responding right now."}, broadcast=False)
-
+        
 
 #--- Run Server ---
 if __name__ == '__main__':
