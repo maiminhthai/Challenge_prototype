@@ -1,0 +1,407 @@
+{
+  "events": [
+    {
+      "event_id": "EVT_MIN_0001",
+      "driver_id": "D002",
+      "title": "Office work (late shift)",
+      "category": "work",
+      "start_time": "2025-11-24T13:00:00",
+      "end_time": "2025-11-24T19:00:00",
+      "location_name": "Teapot Torino",
+      "location": {
+        "lat": 45.0708,
+        "lon": 7.6901
+      }
+    },
+    {
+      "event_id": "EVT_MIN_0002",
+      "driver_id": "D003",
+      "title": "Morning gym workout",
+      "category": "health",
+      "start_time": "2025-11-24T07:00:00",
+      "end_time": "2025-11-24T08:00:00",
+      "location_name": "Virgin Active Torino",
+      "location": {
+        "lat": 45.0635,
+        "lon": 7.6781
+      }
+    },
+    {
+      "event_id": "EVT_MIN_0003",
+      "driver_id": "D001",
+      "title": "Evening reading at library",
+      "category": "hobby",
+      "start_time": "2025-11-25T18:00:00",
+      "end_time": "2025-11-25T20:00:00",
+      "location_name": "Biblioteca Civica Centrale",
+      "location": {
+        "lat": 45.0731,
+        "lon": 7.6808
+      }
+    },
+    {
+      "event_id": "EVT_MIN_0004",
+      "driver_id": "D005",
+      "title": "Afternoon walk in park",
+      "category": "health",
+      "start_time": "2025-11-26T17:00:00",
+      "end_time": "2025-11-26T18:00:00",
+      "location_name": "Piazza d\u2019Armi Park",
+      "location": {
+        "lat": 45.0462,
+        "lon": 7.6509
+      }
+    },
+    {
+      "event_id": "EVT_MIN_0005",
+      "driver_id": "D001",
+      "title": "Evening reading at library",
+      "category": "hobby",
+      "start_time": "2025-11-27T18:00:00",
+      "end_time": "2025-11-27T20:00:00",
+      "location_name": "Biblioteca Civica Centrale",
+      "location": {
+        "lat": 45.0731,
+        "lon": 7.6808
+      }
+    },
+    {
+      "event_id": "EVT_MIN_0006",
+      "driver_id": "D006",
+      "title": "Fast charging stop",
+      "category": "charging",
+      "start_time": "2025-11-27T18:00:00",
+      "end_time": "2025-11-27T19:00:00",
+      "location_name": "Ionity Fast Charger - Turin Nord",
+      "location": {
+        "lat": 45.1002,
+        "lon": 7.6749
+      }
+    },
+    {
+      "event_id": "EVT_MIN_0007",
+      "driver_id": "D002",
+      "title": "Movie night at cinema",
+      "category": "leisure",
+      "start_time": "2025-11-28T21:00:00",
+      "end_time": "2025-11-28T23:00:00",
+      "location_name": "Cinema Massimo",
+      "location": {
+        "lat": 45.0681,
+        "lon": 7.686
+      }
+    },
+    {
+      "event_id": "EVT_MIN_0008",
+      "driver_id": "D001",
+      "title": "Coffee and reading",
+      "category": "leisure",
+      "start_time": "2025-11-29T10:00:00",
+      "end_time": "2025-11-29T11:00:00",
+      "location_name": "Caffe Torino",
+      "location": {
+        "lat": 45.0704,
+        "lon": 7.6868
+      }
+    },
+    {
+      "event_id": "EVT_MIN_0009",
+      "driver_id": "D003",
+      "title": "Morning run in park",
+      "category": "health",
+      "start_time": "2025-11-29T09:00:00",
+      "end_time": "2025-11-29T10:00:00",
+      "location_name": "Parco Valentino",
+      "location": {
+        "lat": 45.0521,
+        "lon": 7.6863
+      }
+    },
+    {
+      "event_id": "EVT_MIN_0010",
+      "driver_id": "D004",
+      "title": "Dinner out",
+      "category": "leisure",
+      "start_time": "2025-11-29T20:00:00",
+      "end_time": "2025-11-29T22:00:00",
+      "location_name": "Ristorante Solferino",
+      "location": {
+        "lat": 45.0718,
+        "lon": 7.6823
+      }
+    },
+    {
+      "event_id": "EVT_MIN_0011",
+      "driver_id": "D006",
+      "title": "Tech shopping",
+      "category": "leisure",
+      "start_time": "2025-11-29T16:00:00",
+      "end_time": "2025-11-29T18:00:00",
+      "location_name": "MediaWorld Torino",
+      "location": {
+        "lat": 45.0738,
+        "lon": 7.6621
+      }
+    },
+    {
+      "event_id": "EVT_MIN_0012",
+      "driver_id": "D002",
+      "title": "Online gaming session",
+      "category": "hobby",
+      "start_time": "2025-11-30T15:00:00",
+      "end_time": "2025-11-30T18:00:00",
+      "location_name": "Home",
+      "location": {
+        "lat": 45.07,
+        "lon": 7.68
+      }
+    },
+    {
+      "event_id": "EVT_MIN_0013",
+      "driver_id": "D004",
+      "title": "Morning photography walk",
+      "category": "hobby",
+      "start_time": "2025-11-30T08:00:00",
+      "end_time": "2025-11-30T10:00:00",
+      "location_name": "Monte dei Cappuccini Viewpoint",
+      "location": {
+        "lat": 45.0547,
+        "lon": 7.7035
+      }
+    },
+    {
+      "event_id": "EVT_MIN_0014",
+      "driver_id": "D005",
+      "title": "Visit botanical garden",
+      "category": "leisure",
+      "start_time": "2025-11-30T11:00:00",
+      "end_time": "2025-11-30T12:00:00",
+      "location_name": "Orto Botanico Torino",
+      "location": {
+        "lat": 45.0583,
+        "lon": 7.6898
+      }
+    },
+    {
+      "event_id": "EVT_MIN_0015",
+      "driver_id": "D002",
+      "title": "Office work (late shift)",
+      "category": "work",
+      "start_time": "2025-12-01T13:00:00",
+      "end_time": "2025-12-01T19:00:00",
+      "location_name": "Teapot Torino",
+      "location": {
+        "lat": 45.0708,
+        "lon": 7.6901
+      }
+    },
+    {
+      "event_id": "EVT_MIN_0016",
+      "driver_id": "D003",
+      "title": "Morning gym workout",
+      "category": "health",
+      "start_time": "2025-12-01T07:00:00",
+      "end_time": "2025-12-01T08:00:00",
+      "location_name": "Virgin Active Torino",
+      "location": {
+        "lat": 45.0635,
+        "lon": 7.6781
+      }
+    },
+    {
+      "event_id": "EVT_MIN_0017",
+      "driver_id": "D001",
+      "title": "Evening reading at library",
+      "category": "hobby",
+      "start_time": "2025-12-02T18:00:00",
+      "end_time": "2025-12-02T20:00:00",
+      "location_name": "Biblioteca Civica Centrale",
+      "location": {
+        "lat": 45.0731,
+        "lon": 7.6808
+      }
+    },
+    {
+      "event_id": "EVT_MIN_0018",
+      "driver_id": "D005",
+      "title": "Afternoon walk in park",
+      "category": "health",
+      "start_time": "2025-12-03T17:00:00",
+      "end_time": "2025-12-03T18:00:00",
+      "location_name": "Piazza d\u2019Armi Park",
+      "location": {
+        "lat": 45.0462,
+        "lon": 7.6509
+      }
+    },
+    {
+      "event_id": "EVT_MIN_0019",
+      "driver_id": "D001",
+      "title": "Evening reading at library",
+      "category": "hobby",
+      "start_time": "2025-12-04T18:00:00",
+      "end_time": "2025-12-04T20:00:00",
+      "location_name": "Biblioteca Civica Centrale",
+      "location": {
+        "lat": 45.0731,
+        "lon": 7.6808
+      }
+    },
+    {
+      "event_id": "EVT_MIN_0020",
+      "driver_id": "D006",
+      "title": "Fast charging stop",
+      "category": "charging",
+      "start_time": "2025-12-04T18:00:00",
+      "end_time": "2025-12-04T19:00:00",
+      "location_name": "Ionity Fast Charger - Turin Nord",
+      "location": {
+        "lat": 45.1002,
+        "lon": 7.6749
+      }
+    },
+    {
+      "event_id": "EVT_MIN_0021",
+      "driver_id": "D002",
+      "title": "Movie night at cinema",
+      "category": "leisure",
+      "start_time": "2025-12-05T21:00:00",
+      "end_time": "2025-12-05T23:00:00",
+      "location_name": "Cinema Massimo",
+      "location": {
+        "lat": 45.0681,
+        "lon": 7.686
+      }
+    },
+    {
+      "event_id": "EVT_MIN_0022",
+      "driver_id": "D001",
+      "title": "Coffee and reading",
+      "category": "leisure",
+      "start_time": "2025-12-06T10:00:00",
+      "end_time": "2025-12-06T11:00:00",
+      "location_name": "Caffe Torino",
+      "location": {
+        "lat": 45.0704,
+        "lon": 7.6868
+      }
+    },
+    {
+      "event_id": "EVT_MIN_0023",
+      "driver_id": "D003",
+      "title": "Morning run in park",
+      "category": "health",
+      "start_time": "2025-12-06T09:00:00",
+      "end_time": "2025-12-06T10:00:00",
+      "location_name": "Parco Valentino",
+      "location": {
+        "lat": 45.0521,
+        "lon": 7.6863
+      }
+    },
+    {
+      "event_id": "EVT_MIN_0024",
+      "driver_id": "D004",
+      "title": "Dinner out",
+      "category": "leisure",
+      "start_time": "2025-12-06T20:00:00",
+      "end_time": "2025-12-06T22:00:00",
+      "location_name": "Ristorante Solferino",
+      "location": {
+        "lat": 45.0718,
+        "lon": 7.6823
+      }
+    },
+    {
+      "event_id": "EVT_MIN_0025",
+      "driver_id": "D006",
+      "title": "Tech shopping",
+      "category": "leisure",
+      "start_time": "2025-12-06T16:00:00",
+      "end_time": "2025-12-06T18:00:00",
+      "location_name": "MediaWorld Torino",
+      "location": {
+        "lat": 45.0738,
+        "lon": 7.6621
+      }
+    },
+    {
+      "event_id": "EVT_MIN_0026",
+      "driver_id": "D002",
+      "title": "Online gaming session",
+      "category": "hobby",
+      "start_time": "2025-12-07T15:00:00",
+      "end_time": "2025-12-07T18:00:00",
+      "location_name": "Home",
+      "location": {
+        "lat": 45.07,
+        "lon": 7.68
+      }
+    },
+    {
+      "event_id": "EVT_MIN_0027",
+      "driver_id": "D004",
+      "title": "Morning photography walk",
+      "category": "hobby",
+      "start_time": "2025-12-07T08:00:00",
+      "end_time": "2025-12-07T10:00:00",
+      "location_name": "Monte dei Cappuccini Viewpoint",
+      "location": {
+        "lat": 45.0547,
+        "lon": 7.7035
+      }
+    },
+    {
+      "event_id": "EVT_MIN_0028",
+      "driver_id": "D005",
+      "title": "Visit botanical garden",
+      "category": "leisure",
+      "start_time": "2025-12-07T11:00:00",
+      "end_time": "2025-12-07T12:00:00",
+      "location_name": "Orto Botanico Torino",
+      "location": {
+        "lat": 45.0583,
+        "lon": 7.6898
+      }
+    },
+    {
+      "event_id": "EVT_MIN_0029",
+      "driver_id": "D007",
+      "title": "After-work shopping in Turin",
+      "category": "leisure",
+      "start_time": "2025-11-24T18:00:00",
+      "end_time": "2025-11-24T20:00:00",
+      "location_name": "Torino Shopping Gallery",
+      "location": {
+        "lat": 45.0709,
+        "lon": 7.6785
+      }
+    },
+    {
+      "event_id": "EVT_MIN_0030",
+      "driver_id": "D007",
+      "title": "After-work shopping in Turin",
+      "category": "leisure",
+      "start_time": "2025-12-01T18:00:00",
+      "end_time": "2025-12-01T20:00:00",
+      "location_name": "Torino Shopping Gallery",
+      "location": {
+        "lat": 45.0709,
+        "lon": 7.6785
+      }
+    },
+    {
+      "event_id": "EVT_MIN_0031",
+      "driver_id": "D007",
+      "title": "Marketing conference in Bologna",
+      "category": "work",
+      "start_time": "2025-11-27T10:00:00",
+      "end_time": "2025-11-27T17:00:00",
+      "location_name": "Bologna Congress Center",
+      "location": {
+        "lat": 44.5103,
+        "lon": 11.3513
+      }
+    }
+  ]
+}

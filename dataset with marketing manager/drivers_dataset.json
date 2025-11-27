@@ -1,0 +1,248 @@
+{
+  "user_profiles": [
+    {
+      "driver_id": "D001",
+      "preferences": {
+        "music": [
+          "jazz",
+          "classical"
+        ],
+        "drinks": [
+          "coffee"
+        ],
+        "hobbies": [
+          "reading",
+          "walking"
+        ],
+        "favorite_places": [
+          {
+            "type": "cafe",
+            "name": "Caffe Torino",
+            "location": {
+              "lat": 45.0704,
+              "lon": 7.6868
+            }
+          },
+          {
+            "type": "library",
+            "name": "Biblioteca Civica Centrale",
+            "location": {
+              "lat": 45.0731,
+              "lon": 7.6808
+            }
+          }
+        ]
+      }
+    },
+    {
+      "driver_id": "D002",
+      "preferences": {
+        "music": [
+          "rock",
+          "electronic"
+        ],
+        "drinks": [
+          "tea"
+        ],
+        "hobbies": [
+          "cinema",
+          "gaming"
+        ],
+        "favorite_places": [
+          {
+            "type": "cinema",
+            "name": "Cinema Massimo",
+            "location": {
+              "lat": 45.0681,
+              "lon": 7.686
+            }
+          },
+          {
+            "type": "tea_house",
+            "name": "Teapot Torino",
+            "location": {
+              "lat": 45.0708,
+              "lon": 7.6901
+            }
+          }
+        ]
+      }
+    },
+    {
+      "driver_id": "D003",
+      "preferences": {
+        "music": [
+          "pop"
+        ],
+        "drinks": [
+          "smoothies"
+        ],
+        "hobbies": [
+          "gym",
+          "running"
+        ],
+        "favorite_places": [
+          {
+            "type": "gym",
+            "name": "Virgin Active Torino",
+            "location": {
+              "lat": 45.0635,
+              "lon": 7.6781
+            }
+          },
+          {
+            "type": "park",
+            "name": "Parco Valentino",
+            "location": {
+              "lat": 45.0521,
+              "lon": 7.6863
+            }
+          }
+        ]
+      }
+    },
+    {
+      "driver_id": "D004",
+      "preferences": {
+        "music": [
+          "ambient"
+        ],
+        "drinks": [
+          "coffee"
+        ],
+        "hobbies": [
+          "restaurants",
+          "photography"
+        ],
+        "favorite_places": [
+          {
+            "type": "restaurant",
+            "name": "Ristorante Solferino",
+            "location": {
+              "lat": 45.0718,
+              "lon": 7.6823
+            }
+          },
+          {
+            "type": "scenic_spot",
+            "name": "Monte dei Cappuccini Viewpoint",
+            "location": {
+              "lat": 45.0547,
+              "lon": 7.7035
+            }
+          }
+        ]
+      }
+    },
+    {
+      "driver_id": "D005",
+      "preferences": {
+        "music": [
+          "indie"
+        ],
+        "drinks": [
+          "juice"
+        ],
+        "hobbies": [
+          "nature",
+          "parks"
+        ],
+        "favorite_places": [
+          {
+            "type": "park",
+            "name": "Piazza d\u2019Armi Park",
+            "location": {
+              "lat": 45.0462,
+              "lon": 7.6509
+            }
+          },
+          {
+            "type": "garden",
+            "name": "Orto Botanico Torino",
+            "location": {
+              "lat": 45.0583,
+              "lon": 7.6898
+            }
+          }
+        ]
+      }
+    },
+    {
+      "driver_id": "D006",
+      "preferences": {
+        "music": [
+          "metal"
+        ],
+        "drinks": [
+          "energy_drink"
+        ],
+        "hobbies": [
+          "tech",
+          "charging_fast"
+        ],
+        "favorite_places": [
+          {
+            "type": "tech_store",
+            "name": "MediaWorld Torino",
+            "location": {
+              "lat": 45.0738,
+              "lon": 7.6621
+            }
+          },
+          {
+            "type": "fast_charger",
+            "name": "Ionity Fast Charger - Turin Nord",
+            "location": {
+              "lat": 45.1002,
+              "lon": 7.6749
+            }
+          }
+        ]
+      }
+    },
+    {
+      "driver_id": "D007",
+      "role": "marketing_manager",
+      "preferences": {
+        "music": [
+          "pop",
+          "chill"
+        ],
+        "drinks": [
+          "coffee"
+        ],
+        "hobbies": [
+          "shopping",
+          "city_trips",
+          "conferences"
+        ],
+        "favorite_places": [
+          {
+            "type": "shopping_mall",
+            "name": "Torino Shopping Gallery",
+            "location": {
+              "lat": 45.0709,
+              "lon": 7.6785
+            }
+          },
+          {
+            "type": "shopping_street",
+            "name": "Via Indipendenza Bologna",
+            "location": {
+              "lat": 44.4965,
+              "lon": 11.3419
+            }
+          },
+          {
+            "type": "conference_center",
+            "name": "Bologna Congress Center",
+            "location": {
+              "lat": 44.5103,
+              "lon": 11.3513
+            }
+          }
+        ]
+      }
+    }
+  ]
+}
