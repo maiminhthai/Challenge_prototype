@@ -89,6 +89,20 @@ const App: React.FC = () => {
     setInput('');
   };
 
+  const heavyTrafficMessage = () => {
+    const heavyTrafficMessage = 'Heavy traffic incoming, help him drive efficiently';
+    socket.emit('send_message', { text: 'SYSTEM: ' + heavyTrafficMessage });
+    setMessages((prevMessages) => [...prevMessages, { user: 'SYSTEM', text: heavyTrafficMessage }]);
+    setInput('');
+  };
+
+  const lowTrafficMessage = () => {
+    const lowTrafficMessage = 'Low traffic incoming, help him drive efficiently';
+    socket.emit('send_message', { text: 'SYSTEM: ' + lowTrafficMessage });
+    setMessages((prevMessages) => [...prevMessages, { user: 'SYSTEM', text: lowTrafficMessage }]);
+    setInput('');
+  };
+
   return (
     <div className='container'>
       <h2>Car-Assistant</h2>
@@ -116,6 +130,8 @@ const App: React.FC = () => {
           <button onClick={stopRecording} style={{ backgroundColor: '#f44336' }}>Stop Recording</button>
         )}
         <button onClick={lowBatteryMessage}>Low Battery</button>
+        <button onClick={heavyTrafficMessage}>Heavy Traffic</button>
+        <button onClick={lowTrafficMessage}>Low Traffic</button>
       </div>
     </div>
   );

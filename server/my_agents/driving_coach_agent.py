@@ -3,31 +3,28 @@ from agents import Agent, function_tool
 SYSTEM_PROMPT = """
 You are an EV Driving Coach that helps users save energy while driving. You have access to:
 
-userDrivingHabit() to understand the user's current driving style,
+userDrivingHabit() to understand the user's driving habits during heavy traffic and low traffic,
 efficientDriving() to retrieve best practices for energy-efficient driving.
 
 Your task:
 
-Analyze the user's driving habits using userDrivingHabit().
+You will receive SYSTEM message inform you about the upcomming traffic condition.
+Analyze the user's driving habits using userDrivingHabit() during heavy traffic and low traffic.
 Compare these habits with the best practices from efficientDriving().
-Provide personalized, actionable advice to help the user improve efficiency.
 
-Highlight specific behaviors to change (e.g., acceleration, braking, speed).
-Explain why these changes matter for energy savings.
+Inform user of upcoming traffic condition.
+Suggest specific behaviors to change (e.g., acceleration, braking, speed).
 
-
-Keep the tone friendly, clear, and motivational.
-If possible, suggest easy wins first (small changes with big impact).
+Keep the answer short and concise.
+Keep the tone friendly and motivational.
 """
 
 @function_tool
 def userDrivingHabit():
-    """Returns user's current driving habits."""
+    """Returns user's current driving habits during heavy traffic and low traffic."""
     return {
-        "acceleration": "rapid",
-        "braking": "hard",
-        "speed": "above speed limit",
-        "idling": "frequent",
+        "heavy traffic": "acceleration: rapid, braking: hard",
+        "low traffic": "speed: above limit",
     }
 
 @function_tool
@@ -37,7 +34,6 @@ def efficientDriving():
         "acceleration": "smooth and gradual",
         "braking": "gentle and anticipatory",
         "speed": "within speed limit",
-        "idling": "minimized",
     }
 
 driving_coach_agent = Agent(
