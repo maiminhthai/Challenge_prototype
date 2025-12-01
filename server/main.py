@@ -22,9 +22,17 @@ socketio = SocketIO(app, cors_allowed_origins="*")
 def handle_connect():
     """Handles new client connections."""
     print('Client connected')
-    emit('message', {'user': 'System', 'text': 'Welcome to the Chatbot!'}, broadcast=False)
-    # Automatically send the first bot message
-    emit('message', {'user': 'Bot', 'text': 'I am your real-time chat bot.'}, broadcast=False)
+    try:
+        loop = asyncio.new_event_loop()
+        bot_response = loop.run_until_complete(
+            get_message_response("SYSTEM: START")
+        )
+        print(f"Bot response: {bot_response.final_output}")
+        # 3. Send the bot's response back to the user
+        emit('message', {'user': 'Bot', 'text': bot_response.final_output}, broadcast=False)
+    except Exception as e:
+        print("Exception: ", e)
+        emit('message', {'user': 'Bot', 'text': "Sorry, I'm having trouble responding right now."}, broadcast=False)
 
 @socketio.on('disconnect')
 def handle_disconnect():
@@ -49,8 +57,8 @@ def handle_user_message(data):
         print(f"Bot response: {bot_response.final_output}")
         # 3. Send the bot's response back to the user
         emit('message', {'user': 'Bot', 'text': bot_response.final_output}, broadcast=False)
-    except RuntimeError:
-        print("RuntimeError: Event loop is closed")
+    except Exception as e:
+        print("Exception: ", e)
         emit('message', {'user': 'Bot', 'text': "Sorry, I'm having trouble responding right now."}, broadcast=False)
 
 

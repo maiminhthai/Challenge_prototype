@@ -82,6 +82,13 @@ const App: React.FC = () => {
     }
   };
 
+  const lowBatteryMessage = () => {
+    const lowBatteryMessage = 'User battery is running low, help him find a charging station';
+    socket.emit('send_message', { text: lowBatteryMessage });
+    setMessages((prevMessages) => [...prevMessages, { user: 'SYSTEM', text: lowBatteryMessage }]);
+    setInput('');
+  };
+
   return (
     <div className='container'>
       <h2>Car-Assistant</h2>
@@ -108,6 +115,7 @@ const App: React.FC = () => {
         ) : (
           <button onClick={stopRecording} style={{ backgroundColor: '#f44336' }}>Stop Recording</button>
         )}
+        <button onClick={lowBatteryMessage}>Low Battery</button>
       </div>
     </div>
   );

@@ -1,7 +1,7 @@
 from agents import Agent, function_tool, AgentHooks, RunContextWrapper
 
 
-SYSTEM_PROMPT = """
+CHARGING_STATION_AGENT_PROMPT = """
 You are a navigation assistant that helps users find EV charging stations based on both their travel habits and to-do list. You have access to:
 
 . userProfile() for habitual routes and times,
@@ -68,7 +68,7 @@ def dateTimeNow():
 charging_station_agent = Agent(
     name="Charging Station Expert",
     handoff_description="Specialist agent for finding charging stations",
-    instructions=SYSTEM_PROMPT,
+    instructions=CHARGING_STATION_AGENT_PROMPT,
     tools=[userProfile, todoList, stationCloseTo, dateTimeNow],
     model="gpt-4o-mini",
     #hooks=myHooks,
