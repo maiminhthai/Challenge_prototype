@@ -12,6 +12,8 @@ dependencies = [
     "langchain-community>=0.4.1",
     "langchain-openai>=1.0.3",
     "langgraph>=1.0.3",
-    "openai-agents>=0.5.1",
+    "openai-agents[voice]>=0.5.1",
     "python-dotenv>=1.2.1",
+    "numpy>=1.26.0",
+    "soundfile>=0.12.1",
 ]

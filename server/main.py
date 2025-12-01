@@ -1,11 +1,13 @@
-from math import e
-import socket
+import numpy as np
 from flask_socketio import SocketIO, emit
 from flask import Flask, request, make_response, jsonify
 from flask_cors import CORS
 from my_agents.orchestrator_agent import orchestrator_agent
 from agents import Runner
 import asyncio
+from my_agents.workflow import get_voice_response
+import io
+import soundfile as sf
 
 from dotenv import load_dotenv
 # --- Load Environment Variables ---
@@ -54,7 +56,29 @@ def handle_user_message(data):
         emit('message', {'user': 'Bot', 'text': "Sorry, I'm having trouble responding right now."}, broadcast=False)
 
 
+@socketio.on('send_audio')
+def handle_audio(data):
+    """
+    Handles audio data sent from the client.
+    Echoes the audio back to the client.
+    """
+    print("Received audio data")
+    try:
+        audio_file = io.BytesIO(data)
+        audio_array, sample_rate = sf.read(audio_file, dtype='float32')
+        loop = asyncio.new_event_loop()
+        response = loop.run_until_complete(
+            get_voice_response(audio_array)
+        )
+        print("Got response")
+        bot_response = np.array(response, dtype=np.float32).tobytes()
+        emit('audio', bot_response, broadcast=False)
+
+    except Exception as e:
+        print(f"Error processing audio: {e}")
+        emit('message', {'user': 'System', 'text': f"Error processing audio: {e}"}, broadcast=False)
+
+
 #--- Run Server ---
 if __name__ == '__main__':
-    socketio.run(app, debug=True)
-
+    socketio.run(app, debug=True, allow_unsafe_werkzeug=True)
