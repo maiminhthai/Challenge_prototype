@@ -25,7 +25,7 @@ const App: React.FC = () => {
 
     socket.on('audio', (audioData: ArrayBuffer) => {
       console.log("Received audio back from server");
-      const blob = new Blob([audioData], { type: 'audio/webm' });
+      const blob = new Blob([audioData], { type: 'audio/wav' });
       const url = URL.createObjectURL(blob);
       const audio = new Audio(url);
       audio.play();

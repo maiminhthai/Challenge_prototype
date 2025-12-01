@@ -2,10 +2,8 @@ import numpy as np
 from flask_socketio import SocketIO, emit
 from flask import Flask, request, make_response, jsonify
 from flask_cors import CORS
-from my_agents.orchestrator_agent import orchestrator_agent
-from agents import Runner
 import asyncio
-from my_agents.workflow import get_voice_response
+from my_agents.workflow import get_voice_response, get_message_response
 import io
 import soundfile as sf
 
@@ -46,7 +44,7 @@ def handle_user_message(data):
     try:
         loop = asyncio.new_event_loop()
         bot_response = loop.run_until_complete(
-            Runner.run(orchestrator_agent, user_message)
+            get_message_response(user_message)
         )
         print(f"Bot response: {bot_response.final_output}")
         # 3. Send the bot's response back to the user
@@ -70,8 +68,18 @@ def handle_audio(data):
         response = loop.run_until_complete(
             get_voice_response(audio_array)
         )
-        print("Got response")
-        bot_response = np.array(response, dtype=np.float32).tobytes()
+        # Ensure response is a flat numpy array
+        if isinstance(response, list) and len(response) > 0:
+            response = np.concatenate(response)
+        elif isinstance(response, list):
+            response = np.array([], dtype=np.float32)
+            
+        print(f"Response shape: {response.shape}")
+
+        out_buffer = io.BytesIO()
+        sf.write(out_buffer, response, sample_rate, format='WAV')
+        bot_response = out_buffer.getvalue()
+        
         emit('audio', bot_response, broadcast=False)
 
     except Exception as e:
