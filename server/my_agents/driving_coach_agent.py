@@ -32,7 +32,7 @@ def efficientDriving():
     """Returns best practices for energy-efficient driving."""
     return {
         "acceleration": "smooth and gradual",
-        "braking": "gentle and anticipatory",
+        "braking": "smoth braking",
         "speed": "within speed limit",
     }
 

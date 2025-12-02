@@ -84,7 +84,7 @@ const App: React.FC = () => {
 
   const lowBatteryMessage = () => {
     const lowBatteryMessage = 'User battery is running low, help him find a charging station';
-    socket.emit('send_message', { text: lowBatteryMessage });
+    socket.emit('send_message', { text: 'SYSTEM: ' + lowBatteryMessage });
     setMessages((prevMessages) => [...prevMessages, { user: 'SYSTEM', text: lowBatteryMessage }]);
     setInput('');
   };

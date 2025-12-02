@@ -1,13 +1,17 @@
 from agents.voice import AudioInput, VoicePipeline,  SingleAgentVoiceWorkflow
 from my_agents.orchestrator_agent import orchestrator_agent
-from agents import Runner, SQLiteSession
+from agents import Runner, OpenAIConversationsSession
+
+from dotenv import load_dotenv
+# --- Load Environment Variables ---
+load_dotenv()
 
 workflow = SingleAgentVoiceWorkflow(
     agent=orchestrator_agent,
 )
 
 voice_pipeline = VoicePipeline(workflow=workflow)
-session = SQLiteSession("user_session")
+session = OpenAIConversationsSession()
 
 async def get_voice_response(data):
     audio_input = AudioInput(buffer=data)

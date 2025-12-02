@@ -7,9 +7,6 @@ from my_agents.workflow import get_voice_response, get_message_response
 import io
 import soundfile as sf
 
-from dotenv import load_dotenv
-# --- Load Environment Variables ---
-load_dotenv()
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'your_secret_key'
