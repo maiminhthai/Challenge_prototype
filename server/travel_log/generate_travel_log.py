@@ -2,9 +2,9 @@ import csv
 import random
 from datetime import datetime, timedelta
 
-def generate_random_time(base_hour, error_minutes=30):
+def generate_random_time(base_hour, base_minute=0, error_minutes=15):
     """Generates a time string HH:MM with a random error."""
-    base_time = datetime(2000, 1, 1, base_hour, 0)
+    base_time = datetime(2000, 1, 1, base_hour, base_minute)
     # Random error between -error_minutes and error_minutes
     error = random.randint(-error_minutes, error_minutes)
     
@@ -107,9 +107,9 @@ def main():
                     "Arrival Location": "Gym"
                 })
                 
-                # 3. Gym (19:00) -> Home (19:30)
+                # 3. Gym (19:00) -> Home (20:00)
                 t3_start = generate_random_time(19)
-                t3_end = generate_random_time(19, error_minutes=30) # 19:30 target, so base 19:30?
+                t3_end = generate_random_time(20) # 19:30 target, so base 19:30?
                 # Prompt: "At 19 he goes... He arrives home at 19:30."
                 # Let's use base 19 for start, base 19:30 for end.
                 # My helper takes hour. I'll adjust manually.

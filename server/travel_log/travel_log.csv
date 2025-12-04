@@ -1,222 +1,234 @@
 Date,Day,Start Time,Arrival Time,Starting Location,Arrival Location
-2024-01-01,Monday,07:32,08:41,Home,Work
-2024-01-01,Monday,17:13,18:06,Work,Gym
-2024-01-01,Monday,19:07,19:53,Gym,Home
-2024-01-02,Tuesday,08:20,09:04,Home,Work
-2024-01-02,Tuesday,17:21,17:41,Work,Gym
-2024-01-02,Tuesday,19:07,19:42,Gym,Home
-2024-01-03,Wednesday,09:52,10:27,Home,Friend's House
-2024-01-03,Wednesday,11:22,12:22,Friend's House,Dry Cleaners
-2024-01-03,Wednesday,13:04,14:28,Dry Cleaners,Friend's House
-2024-01-03,Wednesday,15:22,16:22,Friend's House,Home
-2024-01-04,Thursday,08:24,08:55,Home,Work
-2024-01-04,Thursday,16:46,17:46,Work,Gym
-2024-01-04,Thursday,19:00,19:47,Gym,Home
-2024-01-05,Friday,08:07,09:26,Home,Work
-2024-01-05,Friday,17:29,18:01,Work,Gym
-2024-01-05,Friday,19:11,19:51,Gym,Home
-2024-01-08,Monday,11:44,12:18,Home,Cinema
-2024-01-08,Monday,14:56,15:27,Cinema,Mall
-2024-01-08,Monday,18:48,19:37,Mall,Grocery Store
-2024-01-08,Monday,22:58,23:06,Grocery Store,Home
-2024-01-09,Tuesday,08:12,08:43,Home,Work
-2024-01-09,Tuesday,16:37,18:27,Work,Gym
-2024-01-09,Tuesday,19:04,19:50,Gym,Home
-2024-01-10,Wednesday,07:34,09:17,Home,Work
-2024-01-10,Wednesday,16:47,18:01,Work,Gym
-2024-01-10,Wednesday,19:30,19:53,Gym,Home
-2024-01-11,Thursday,08:29,08:59,Home,Work
-2024-01-11,Thursday,16:58,17:59,Work,Gym
-2024-01-11,Thursday,19:27,19:57,Gym,Home
-2024-01-12,Friday,07:40,09:16,Home,Work
-2024-01-12,Friday,17:11,17:52,Work,Gym
-2024-01-12,Friday,19:19,19:59,Gym,Home
-2024-01-13,Saturday,10:36,11:12,Home,Dry Cleaners
-2024-01-13,Saturday,14:11,15:45,Dry Cleaners,Home
-2024-01-15,Monday,07:50,08:44,Home,Work
-2024-01-15,Monday,17:09,18:20,Work,Gym
-2024-01-15,Monday,19:29,19:32,Gym,Home
-2024-01-16,Tuesday,08:21,08:50,Home,Work
-2024-01-16,Tuesday,16:49,18:07,Work,Gym
-2024-01-16,Tuesday,19:12,19:57,Gym,Home
-2024-01-17,Wednesday,07:44,08:58,Home,Work
-2024-01-17,Wednesday,17:01,18:02,Work,Gym
-2024-01-17,Wednesday,19:27,19:54,Gym,Home
-2024-01-18,Thursday,07:35,09:02,Home,Work
-2024-01-18,Thursday,17:04,17:43,Work,Gym
-2024-01-18,Thursday,19:00,19:58,Gym,Home
-2024-01-19,Friday,14:23,15:21,Home,Grocery Store
-2024-01-19,Friday,17:34,18:35,Grocery Store,Park
-2024-01-19,Friday,19:10,20:42,Park,Mall
-2024-01-19,Friday,21:42,22:29,Mall,Home
-2024-01-22,Monday,07:54,08:39,Home,Work
-2024-01-22,Monday,16:56,17:44,Work,Gym
-2024-01-22,Monday,19:15,19:59,Gym,Home
-2024-01-23,Tuesday,12:02,13:25,Home,Friend's House
-2024-01-23,Tuesday,14:56,15:52,Friend's House,Mall
-2024-01-23,Tuesday,16:02,17:43,Mall,Home
-2024-01-24,Wednesday,16:25,17:42,Home,Park
-2024-01-24,Wednesday,18:20,19:51,Park,Dry Cleaners
-2024-01-24,Wednesday,21:15,22:32,Dry Cleaners,Home
-2024-01-25,Thursday,08:03,09:09,Home,Work
-2024-01-25,Thursday,17:03,17:48,Work,Gym
-2024-01-25,Thursday,19:15,19:35,Gym,Home
-2024-01-26,Friday,08:01,09:13,Home,Work
-2024-01-26,Friday,16:58,18:30,Work,Gym
-2024-01-26,Friday,19:27,19:35,Gym,Home
-2024-01-29,Monday,07:33,09:00,Home,Work
-2024-01-29,Monday,16:37,17:51,Work,Gym
-2024-01-29,Monday,19:28,19:52,Gym,Home
-2024-01-30,Tuesday,08:29,09:00,Home,Work
-2024-01-30,Tuesday,16:38,17:30,Work,Gym
-2024-01-30,Tuesday,19:20,19:48,Gym,Home
-2024-01-31,Wednesday,08:01,09:01,Home,Work
-2024-01-31,Wednesday,16:40,18:10,Work,Gym
-2024-01-31,Wednesday,19:00,19:47,Gym,Home
-2024-02-01,Thursday,07:59,08:30,Home,Work
-2024-02-01,Thursday,17:17,17:49,Work,Gym
-2024-02-01,Thursday,19:09,19:34,Gym,Home
-2024-02-02,Friday,08:29,09:26,Home,Work
-2024-02-02,Friday,16:43,18:18,Work,Gym
-2024-02-02,Friday,19:09,19:49,Gym,Home
-2024-02-05,Monday,07:59,08:43,Home,Work
-2024-02-05,Monday,17:23,18:25,Work,Gym
-2024-02-05,Monday,19:26,19:48,Gym,Home
-2024-02-06,Tuesday,07:41,08:54,Home,Work
-2024-02-06,Tuesday,17:15,18:26,Work,Gym
-2024-02-06,Tuesday,19:12,19:33,Gym,Home
-2024-02-07,Wednesday,08:20,08:49,Home,Work
-2024-02-07,Wednesday,16:38,18:29,Work,Gym
-2024-02-07,Wednesday,19:23,19:31,Gym,Home
-2024-02-08,Thursday,08:26,09:00,Home,Work
-2024-02-08,Thursday,17:07,17:52,Work,Gym
-2024-02-08,Thursday,19:26,19:55,Gym,Home
-2024-02-09,Friday,07:56,08:55,Home,Work
-2024-02-09,Friday,17:25,17:32,Work,Gym
-2024-02-09,Friday,19:03,19:57,Gym,Home
-2024-02-10,Saturday,14:19,15:24,Home,Mall
-2024-02-10,Saturday,16:01,17:28,Mall,Home
-2024-02-12,Monday,07:38,08:48,Home,Work
-2024-02-12,Monday,16:36,18:28,Work,Gym
-2024-02-12,Monday,19:17,19:32,Gym,Home
-2024-02-13,Tuesday,08:30,08:43,Home,Work
-2024-02-13,Tuesday,16:45,18:27,Work,Gym
-2024-02-13,Tuesday,19:02,19:31,Gym,Home
-2024-02-14,Wednesday,08:01,08:32,Home,Work
-2024-02-14,Wednesday,16:38,18:27,Work,Gym
-2024-02-14,Wednesday,19:09,19:36,Gym,Home
-2024-02-15,Thursday,14:18,15:02,Home,Dry Cleaners
-2024-02-15,Thursday,17:49,18:40,Dry Cleaners,Mall
-2024-02-15,Thursday,21:59,22:30,Mall,Home
-2024-02-16,Friday,08:30,09:24,Home,Work
-2024-02-16,Friday,16:48,17:58,Work,Gym
-2024-02-16,Friday,19:19,19:32,Gym,Home
-2024-02-17,Saturday,15:59,16:18,Home,Cinema
-2024-02-17,Saturday,18:40,19:21,Cinema,Home
-2024-02-18,Sunday,18:02,19:36,Home,Mall
-2024-02-18,Sunday,21:23,22:28,Mall,Dry Cleaners
-2024-02-18,Sunday,23:40,23:44,Dry Cleaners,Home
-2024-02-19,Monday,08:29,08:50,Home,Work
-2024-02-19,Monday,17:04,17:51,Work,Gym
-2024-02-19,Monday,19:17,19:32,Gym,Home
-2024-02-20,Tuesday,08:25,09:10,Home,Work
-2024-02-20,Tuesday,16:54,18:01,Work,Gym
-2024-02-20,Tuesday,19:28,19:43,Gym,Home
-2024-02-21,Wednesday,08:08,08:58,Home,Work
-2024-02-21,Wednesday,17:01,18:17,Work,Gym
-2024-02-21,Wednesday,19:06,20:00,Gym,Home
-2024-02-22,Thursday,08:15,08:39,Home,Work
-2024-02-22,Thursday,16:41,17:32,Work,Gym
-2024-02-22,Thursday,19:25,19:42,Gym,Home
-2024-02-23,Friday,13:24,14:07,Home,Mall
-2024-02-23,Friday,16:09,17:31,Mall,Home
-2024-02-26,Monday,08:24,08:31,Home,Work
-2024-02-26,Monday,16:57,17:46,Work,Gym
-2024-02-26,Monday,19:04,19:40,Gym,Home
-2024-02-27,Tuesday,07:54,09:03,Home,Work
-2024-02-27,Tuesday,16:37,17:56,Work,Gym
-2024-02-27,Tuesday,19:24,19:33,Gym,Home
-2024-02-28,Wednesday,08:19,09:14,Home,Work
-2024-02-28,Wednesday,16:32,17:47,Work,Gym
-2024-02-28,Wednesday,19:26,19:32,Gym,Home
-2024-02-29,Thursday,08:20,09:29,Home,Work
-2024-02-29,Thursday,17:05,18:12,Work,Gym
-2024-02-29,Thursday,19:09,19:46,Gym,Home
-2024-03-01,Friday,08:23,09:20,Home,Work
-2024-03-01,Friday,16:43,18:19,Work,Gym
-2024-03-01,Friday,19:03,19:41,Gym,Home
-2024-03-04,Monday,08:01,09:22,Home,Work
-2024-03-04,Monday,16:41,17:42,Work,Gym
-2024-03-04,Monday,19:14,19:58,Gym,Home
-2024-03-05,Tuesday,08:11,09:08,Home,Work
-2024-03-05,Tuesday,16:58,18:22,Work,Gym
-2024-03-05,Tuesday,19:14,19:40,Gym,Home
-2024-03-06,Wednesday,07:46,08:49,Home,Work
-2024-03-06,Wednesday,17:08,18:08,Work,Gym
-2024-03-06,Wednesday,19:02,19:50,Gym,Home
-2024-03-07,Thursday,07:48,09:29,Home,Work
-2024-03-07,Thursday,16:48,17:57,Work,Gym
-2024-03-07,Thursday,19:03,19:31,Gym,Home
-2024-03-08,Friday,07:33,08:46,Home,Work
-2024-03-08,Friday,16:59,18:30,Work,Gym
-2024-03-08,Friday,19:21,19:38,Gym,Home
-2024-03-09,Saturday,17:03,18:58,Home,Mall
-2024-03-09,Saturday,19:32,20:33,Mall,Home
-2024-03-11,Monday,08:10,09:25,Home,Work
-2024-03-11,Monday,16:35,17:59,Work,Gym
-2024-03-11,Monday,19:27,19:34,Gym,Home
-2024-03-12,Tuesday,07:50,08:51,Home,Work
-2024-03-12,Tuesday,17:27,18:15,Work,Gym
-2024-03-12,Tuesday,19:02,19:39,Gym,Home
-2024-03-13,Wednesday,07:40,09:20,Home,Work
-2024-03-13,Wednesday,16:34,17:56,Work,Gym
-2024-03-13,Wednesday,19:28,19:48,Gym,Home
-2024-03-14,Thursday,07:38,08:50,Home,Work
-2024-03-14,Thursday,17:28,18:15,Work,Gym
-2024-03-14,Thursday,19:17,19:41,Gym,Home
-2024-03-15,Friday,08:03,09:19,Home,Work
-2024-03-15,Friday,16:39,18:29,Work,Gym
-2024-03-15,Friday,19:00,19:41,Gym,Home
-2024-03-17,Sunday,08:49,09:48,Home,Park
-2024-03-17,Sunday,11:24,12:43,Park,Cinema
-2024-03-17,Sunday,15:33,16:32,Cinema,Home
-2024-03-18,Monday,08:04,09:06,Home,Work
-2024-03-18,Monday,17:12,17:52,Work,Gym
-2024-03-18,Monday,19:20,19:40,Gym,Home
-2024-03-19,Tuesday,07:46,09:09,Home,Work
-2024-03-19,Tuesday,16:57,18:25,Work,Gym
-2024-03-19,Tuesday,19:19,19:33,Gym,Home
-2024-03-20,Wednesday,07:51,09:06,Home,Work
-2024-03-20,Wednesday,16:37,18:01,Work,Gym
-2024-03-20,Wednesday,19:02,19:46,Gym,Home
-2024-03-21,Thursday,07:33,09:28,Home,Work
-2024-03-21,Thursday,16:48,17:39,Work,Gym
-2024-03-21,Thursday,19:11,19:41,Gym,Home
-2024-03-22,Friday,07:48,09:08,Home,Work
-2024-03-22,Friday,17:24,17:54,Work,Gym
-2024-03-22,Friday,19:24,19:59,Gym,Home
-2024-03-23,Saturday,15:36,16:02,Home,Restaurant
-2024-03-23,Saturday,19:43,20:51,Restaurant,Grocery Store
-2024-03-23,Saturday,22:17,23:45,Grocery Store,Home
-2024-03-25,Monday,07:36,09:23,Home,Work
-2024-03-25,Monday,17:19,17:39,Work,Gym
-2024-03-25,Monday,19:11,19:33,Gym,Home
-2024-03-26,Tuesday,16:06,17:04,Home,Park
-2024-03-26,Tuesday,20:27,21:34,Park,Home
-2024-03-27,Wednesday,08:12,09:11,Home,Work
-2024-03-27,Wednesday,16:49,18:07,Work,Gym
-2024-03-27,Wednesday,19:07,19:51,Gym,Home
-2024-03-28,Thursday,07:34,08:59,Home,Work
-2024-03-28,Thursday,17:19,18:30,Work,Gym
-2024-03-28,Thursday,19:07,19:52,Gym,Home
-2024-03-29,Friday,08:30,08:33,Home,Work
-2024-03-29,Friday,17:28,18:03,Work,Gym
-2024-03-29,Friday,19:29,19:57,Gym,Home
-2024-03-30,Saturday,17:37,18:23,Home,Restaurant
-2024-03-30,Saturday,20:00,21:24,Restaurant,Grocery Store
-2024-03-30,Saturday,22:57,23:49,Grocery Store,Dry Cleaners
-2024-03-30,Saturday,24:02,23:41,Dry Cleaners,Home
-2024-03-31,Sunday,11:54,12:15,Home,Dry Cleaners
-2024-03-31,Sunday,14:51,15:25,Dry Cleaners,Park
-2024-03-31,Sunday,18:46,19:20,Park,Restaurant
-2024-03-31,Sunday,22:33,23:06,Restaurant,Home
+2024-01-01,Monday,08:06,09:15,Home,Work
+2024-01-01,Monday,16:45,17:47,Work,Gym
+2024-01-01,Monday,19:24,19:51,Gym,Home
+2024-01-02,Tuesday,08:15,08:59,Home,Work
+2024-01-02,Tuesday,16:59,18:12,Work,Gym
+2024-01-02,Tuesday,19:18,19:38,Gym,Home
+2024-01-03,Wednesday,08:14,09:14,Home,Work
+2024-01-03,Wednesday,17:14,17:59,Work,Gym
+2024-01-03,Wednesday,19:17,19:37,Gym,Home
+2024-01-04,Thursday,16:06,17:29,Home,Grocery Store
+2024-01-04,Thursday,20:27,21:10,Grocery Store,Home
+2024-01-05,Friday,08:06,09:05,Home,Work
+2024-01-05,Friday,17:03,18:12,Work,Gym
+2024-01-05,Friday,19:00,19:37,Gym,Home
+2024-01-08,Monday,08:12,09:03,Home,Work
+2024-01-08,Monday,17:07,18:11,Work,Gym
+2024-01-08,Monday,19:04,19:55,Gym,Home
+2024-01-09,Tuesday,08:13,09:10,Home,Work
+2024-01-09,Tuesday,16:49,18:08,Work,Gym
+2024-01-09,Tuesday,19:20,19:42,Gym,Home
+2024-01-10,Wednesday,08:02,08:54,Home,Work
+2024-01-10,Wednesday,17:15,18:00,Work,Gym
+2024-01-10,Wednesday,19:04,19:59,Gym,Home
+2024-01-11,Thursday,07:51,09:11,Home,Work
+2024-01-11,Thursday,17:02,18:13,Work,Gym
+2024-01-11,Thursday,19:28,19:41,Gym,Home
+2024-01-12,Friday,07:48,09:09,Home,Work
+2024-01-12,Friday,17:08,17:47,Work,Gym
+2024-01-12,Friday,19:30,19:35,Gym,Home
+2024-01-14,Sunday,13:13,14:36,Home,Park
+2024-01-14,Sunday,15:38,16:06,Park,Grocery Store
+2024-01-14,Sunday,18:18,19:16,Grocery Store,Home
+2024-01-15,Monday,08:06,09:12,Home,Work
+2024-01-15,Monday,17:14,17:56,Work,Gym
+2024-01-15,Monday,19:04,19:55,Gym,Home
+2024-01-16,Tuesday,09:32,10:41,Home,Park
+2024-01-16,Tuesday,13:34,14:49,Park,Home
+2024-01-17,Wednesday,08:12,08:56,Home,Work
+2024-01-17,Wednesday,16:49,17:53,Work,Gym
+2024-01-17,Wednesday,19:17,20:00,Gym,Home
+2024-01-18,Thursday,07:50,09:06,Home,Work
+2024-01-18,Thursday,16:56,17:48,Work,Gym
+2024-01-18,Thursday,19:26,19:39,Gym,Home
+2024-01-19,Friday,07:46,08:59,Home,Work
+2024-01-19,Friday,16:49,18:06,Work,Gym
+2024-01-19,Friday,19:07,19:52,Gym,Home
+2024-01-20,Saturday,12:54,13:14,Home,Grocery Store
+2024-01-20,Saturday,14:26,15:51,Grocery Store,Dry Cleaners
+2024-01-20,Saturday,18:08,19:11,Dry Cleaners,Home
+2024-01-21,Sunday,08:07,09:22,Home,Mall
+2024-01-21,Sunday,10:02,11:55,Mall,Park
+2024-01-21,Sunday,12:40,13:42,Park,Home
+2024-01-22,Monday,09:00,10:13,Home,Friend's House
+2024-01-22,Monday,13:26,14:10,Friend's House,Park
+2024-01-22,Monday,17:07,18:37,Park,Home
+2024-01-23,Tuesday,12:38,13:13,Home,Park
+2024-01-23,Tuesday,14:40,15:16,Park,Grocery Store
+2024-01-23,Tuesday,17:25,18:21,Grocery Store,Friend's House
+2024-01-23,Tuesday,20:45,21:09,Friend's House,Home
+2024-01-24,Wednesday,07:53,09:11,Home,Work
+2024-01-24,Wednesday,17:04,17:48,Work,Gym
+2024-01-24,Wednesday,19:24,19:38,Gym,Home
+2024-01-25,Thursday,08:02,09:11,Home,Work
+2024-01-25,Thursday,17:10,18:08,Work,Gym
+2024-01-25,Thursday,19:00,19:56,Gym,Home
+2024-01-26,Friday,08:13,08:53,Home,Work
+2024-01-26,Friday,16:45,17:51,Work,Gym
+2024-01-26,Friday,19:23,19:42,Gym,Home
+2024-01-29,Monday,08:09,09:05,Home,Work
+2024-01-29,Monday,16:53,17:47,Work,Gym
+2024-01-29,Monday,19:07,19:54,Gym,Home
+2024-01-30,Tuesday,07:50,09:10,Home,Work
+2024-01-30,Tuesday,17:00,18:14,Work,Gym
+2024-01-30,Tuesday,19:07,19:44,Gym,Home
+2024-01-31,Wednesday,07:56,09:00,Home,Work
+2024-01-31,Wednesday,17:06,18:11,Work,Gym
+2024-01-31,Wednesday,19:27,19:41,Gym,Home
+2024-02-01,Thursday,07:59,08:59,Home,Work
+2024-02-01,Thursday,16:45,17:51,Work,Gym
+2024-02-01,Thursday,19:21,19:58,Gym,Home
+2024-02-02,Friday,07:53,08:58,Home,Work
+2024-02-02,Friday,16:48,17:54,Work,Gym
+2024-02-02,Friday,19:23,19:39,Gym,Home
+2024-02-05,Monday,07:52,08:59,Home,Work
+2024-02-05,Monday,16:59,18:00,Work,Gym
+2024-02-05,Monday,19:14,19:46,Gym,Home
+2024-02-06,Tuesday,08:05,09:03,Home,Work
+2024-02-06,Tuesday,16:52,17:48,Work,Gym
+2024-02-06,Tuesday,19:10,19:42,Gym,Home
+2024-02-07,Wednesday,08:00,09:08,Home,Work
+2024-02-07,Wednesday,17:03,18:05,Work,Gym
+2024-02-07,Wednesday,19:07,19:44,Gym,Home
+2024-02-08,Thursday,08:08,09:14,Home,Work
+2024-02-08,Thursday,16:47,17:56,Work,Gym
+2024-02-08,Thursday,19:16,19:45,Gym,Home
+2024-02-09,Friday,07:54,08:56,Home,Work
+2024-02-09,Friday,16:56,17:55,Work,Gym
+2024-02-09,Friday,19:24,19:33,Gym,Home
+2024-02-10,Saturday,14:41,15:54,Home,Grocery Store
+2024-02-10,Saturday,17:38,18:11,Grocery Store,Mall
+2024-02-10,Saturday,21:55,22:18,Mall,Cinema
+2024-02-10,Saturday,24:15,23:50,Cinema,Home
+2024-02-12,Monday,08:15,08:54,Home,Work
+2024-02-12,Monday,16:57,17:58,Work,Gym
+2024-02-12,Monday,19:00,19:41,Gym,Home
+2024-02-13,Tuesday,07:52,09:14,Home,Work
+2024-02-13,Tuesday,17:04,17:45,Work,Gym
+2024-02-13,Tuesday,19:26,19:42,Gym,Home
+2024-02-14,Wednesday,07:56,08:59,Home,Work
+2024-02-14,Wednesday,16:49,18:04,Work,Gym
+2024-02-14,Wednesday,19:27,19:42,Gym,Home
+2024-02-15,Thursday,08:10,08:56,Home,Work
+2024-02-15,Thursday,17:13,18:15,Work,Gym
+2024-02-15,Thursday,19:14,19:49,Gym,Home
+2024-02-16,Friday,07:45,09:04,Home,Work
+2024-02-16,Friday,16:55,17:50,Work,Gym
+2024-02-16,Friday,19:30,19:46,Gym,Home
+2024-02-17,Saturday,15:09,16:07,Home,Cinema
+2024-02-17,Saturday,18:37,19:18,Cinema,Friend's House
+2024-02-17,Saturday,20:56,21:15,Friend's House,Home
+2024-02-18,Sunday,08:08,09:50,Home,Restaurant
+2024-02-18,Sunday,12:38,13:01,Restaurant,Grocery Store
+2024-02-18,Sunday,15:38,16:16,Grocery Store,Dry Cleaners
+2024-02-18,Sunday,18:21,19:56,Dry Cleaners,Home
+2024-02-19,Monday,07:55,09:02,Home,Work
+2024-02-19,Monday,16:46,18:02,Work,Gym
+2024-02-19,Monday,19:23,19:37,Gym,Home
+2024-02-20,Tuesday,08:09,09:02,Home,Work
+2024-02-20,Tuesday,16:56,17:45,Work,Gym
+2024-02-20,Tuesday,19:02,19:31,Gym,Home
+2024-02-21,Wednesday,08:04,08:49,Home,Work
+2024-02-21,Wednesday,16:55,17:58,Work,Gym
+2024-02-21,Wednesday,19:10,19:36,Gym,Home
+2024-02-22,Thursday,08:06,08:52,Home,Work
+2024-02-22,Thursday,17:06,17:53,Work,Gym
+2024-02-22,Thursday,19:21,19:47,Gym,Home
+2024-02-23,Friday,07:52,09:00,Home,Work
+2024-02-23,Friday,17:12,17:45,Work,Gym
+2024-02-23,Friday,19:29,19:51,Gym,Home
+2024-02-24,Saturday,08:47,09:29,Home,Park
+2024-02-24,Saturday,12:36,13:43,Park,Home
+2024-02-25,Sunday,08:10,09:28,Home,Restaurant
+2024-02-25,Sunday,10:17,11:13,Restaurant,Home
+2024-02-26,Monday,08:03,09:11,Home,Work
+2024-02-26,Monday,17:02,17:50,Work,Gym
+2024-02-26,Monday,19:00,19:36,Gym,Home
+2024-02-27,Tuesday,08:03,08:50,Home,Work
+2024-02-27,Tuesday,16:57,17:54,Work,Gym
+2024-02-27,Tuesday,19:21,19:54,Gym,Home
+2024-02-28,Wednesday,08:06,09:06,Home,Work
+2024-02-28,Wednesday,16:46,18:03,Work,Gym
+2024-02-28,Wednesday,19:08,19:40,Gym,Home
+2024-02-29,Thursday,08:14,08:58,Home,Work
+2024-02-29,Thursday,16:55,18:07,Work,Gym
+2024-02-29,Thursday,19:26,19:51,Gym,Home
+2024-03-01,Friday,13:19,14:54,Home,Restaurant
+2024-03-01,Friday,17:43,18:09,Restaurant,Grocery Store
+2024-03-01,Friday,21:46,22:09,Grocery Store,Home
+2024-03-02,Saturday,10:11,11:58,Home,Cinema
+2024-03-02,Saturday,14:50,15:01,Cinema,Mall
+2024-03-02,Saturday,16:04,17:02,Mall,Home
+2024-03-04,Monday,13:18,14:42,Home,Restaurant
+2024-03-04,Monday,17:15,18:39,Restaurant,Grocery Store
+2024-03-04,Monday,19:56,20:15,Grocery Store,Home
+2024-03-05,Tuesday,08:06,08:58,Home,Work
+2024-03-05,Tuesday,16:53,17:55,Work,Gym
+2024-03-05,Tuesday,19:01,19:58,Gym,Home
+2024-03-06,Wednesday,08:06,08:53,Home,Work
+2024-03-06,Wednesday,17:06,17:51,Work,Gym
+2024-03-06,Wednesday,19:30,19:51,Gym,Home
+2024-03-07,Thursday,08:11,09:03,Home,Work
+2024-03-07,Thursday,17:06,18:13,Work,Gym
+2024-03-07,Thursday,19:07,19:33,Gym,Home
+2024-03-08,Friday,07:51,08:54,Home,Work
+2024-03-08,Friday,17:10,18:02,Work,Gym
+2024-03-08,Friday,19:19,19:31,Gym,Home
+2024-03-10,Sunday,11:25,12:02,Home,Cinema
+2024-03-10,Sunday,13:32,14:28,Cinema,Restaurant
+2024-03-10,Sunday,17:31,18:44,Restaurant,Home
+2024-03-11,Monday,08:02,08:49,Home,Work
+2024-03-11,Monday,17:08,17:52,Work,Gym
+2024-03-11,Monday,19:03,19:37,Gym,Home
+2024-03-12,Tuesday,07:56,09:04,Home,Work
+2024-03-12,Tuesday,17:00,17:51,Work,Gym
+2024-03-12,Tuesday,19:00,19:33,Gym,Home
+2024-03-13,Wednesday,08:05,09:04,Home,Work
+2024-03-13,Wednesday,17:03,18:09,Work,Gym
+2024-03-13,Wednesday,19:19,19:37,Gym,Home
+2024-03-14,Thursday,07:54,08:50,Home,Work
+2024-03-14,Thursday,17:01,17:57,Work,Gym
+2024-03-14,Thursday,19:00,19:32,Gym,Home
+2024-03-15,Friday,08:00,09:05,Home,Work
+2024-03-15,Friday,16:55,17:45,Work,Gym
+2024-03-15,Friday,19:24,19:48,Gym,Home
+2024-03-16,Saturday,16:31,17:50,Home,Park
+2024-03-16,Saturday,18:44,19:42,Park,Friend's House
+2024-03-16,Saturday,22:14,23:20,Friend's House,Home
+2024-03-17,Sunday,10:38,11:44,Home,Mall
+2024-03-17,Sunday,14:43,15:25,Mall,Dry Cleaners
+2024-03-17,Sunday,18:04,19:49,Dry Cleaners,Home
+2024-03-18,Monday,07:46,09:03,Home,Work
+2024-03-18,Monday,16:53,17:47,Work,Gym
+2024-03-18,Monday,19:18,19:42,Gym,Home
+2024-03-19,Tuesday,08:00,08:54,Home,Work
+2024-03-19,Tuesday,16:46,17:48,Work,Gym
+2024-03-19,Tuesday,19:30,19:33,Gym,Home
+2024-03-20,Wednesday,07:56,08:57,Home,Work
+2024-03-20,Wednesday,17:01,18:09,Work,Gym
+2024-03-20,Wednesday,19:18,19:49,Gym,Home
+2024-03-21,Thursday,08:12,09:00,Home,Work
+2024-03-21,Thursday,17:08,18:09,Work,Gym
+2024-03-21,Thursday,19:02,19:30,Gym,Home
+2024-03-22,Friday,18:49,19:36,Home,Friend's House
+2024-03-22,Friday,20:45,21:44,Friend's House,Dry Cleaners
+2024-03-22,Friday,24:40,23:13,Dry Cleaners,Home
+2024-03-25,Monday,08:01,09:07,Home,Work
+2024-03-25,Monday,17:14,17:45,Work,Gym
+2024-03-25,Monday,19:09,19:55,Gym,Home
+2024-03-26,Tuesday,08:05,08:52,Home,Work
+2024-03-26,Tuesday,17:02,17:52,Work,Gym
+2024-03-26,Tuesday,19:09,19:30,Gym,Home
+2024-03-27,Wednesday,07:49,09:02,Home,Work
+2024-03-27,Wednesday,16:58,18:06,Work,Gym
+2024-03-27,Wednesday,19:26,19:35,Gym,Home
+2024-03-28,Thursday,16:47,17:52,Home,Restaurant
+2024-03-28,Thursday,20:39,21:53,Restaurant,Mall
+2024-03-28,Thursday,24:36,23:51,Mall,Home
+2024-03-29,Friday,08:06,09:12,Home,Work
+2024-03-29,Friday,17:06,17:48,Work,Gym
+2024-03-29,Friday,19:15,19:59,Gym,Home
+2024-03-31,Sunday,17:25,18:51,Home,Cinema
+2024-03-31,Sunday,21:14,22:38,Cinema,Park
+2024-03-31,Sunday,24:49,23:40,Park,Home
