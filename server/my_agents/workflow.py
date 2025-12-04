@@ -6,12 +6,14 @@ from dotenv import load_dotenv
 # --- Load Environment Variables ---
 load_dotenv()
 
+
+session = OpenAIConversationsSession()
+
 workflow = SingleAgentVoiceWorkflow(
     agent=orchestrator_agent,
 )
 
 voice_pipeline = VoicePipeline(workflow=workflow, stt_model="whisper-1", tts_model="tts-1")
-session = OpenAIConversationsSession()
 
 async def get_voice_response(data):
     audio_input = AudioInput(buffer=data)

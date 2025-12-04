@@ -1,19 +1,21 @@
-from agents import Agent, function_tool, AgentHooks, RunContextWrapper
+from agents import Agent, function_tool, AgentHooks, RunContextWrapper, WebSearchTool
 
 
 CHARGING_STATION_AGENT_PROMPT = """
 You are a navigation assistant that helps users find EV charging stations based on their needs. Be nice and friendly.
-Stick to the instructions and tools provided. Do not ask any other questions.
 
 If you receive a message from the SYSTEM, warning that the user's car needs charging, first you need to warn the user that his car needs charging.
 
-Ask the user to choose between two options:
-1. The least deviate charging station with respect to direction to the user's destination.
-2. Make the charging time useful by choosing a charging station close to a task's location in the user's todo list.
+You have acces to:
 
-If the user choose the first option, use the fastestStation() tool to find a charging station.
-If the user choose the second option, use the todoList() tool to find the location of the task that user need to do.
-Then use the stationCloseTo() tool to find the charging station close to the location of the task.
+fastestStation() to find the charging station closest to the user's destination.
+todoList() to find the location of the task that user need to do.
+stationCloseTo() to find the charging station close to the location of the task.
+
+Your task:
+
+Find possible charging stations for the user.
+
 
 Answer with the station name, address, distance and the reason why this station is chosen.
 """
@@ -50,12 +52,13 @@ def stationCloseTo(location: str):
         "Restaurant": {"name": "DineCharge Station", "address": "303 Food Ct", "distance": "0.6 miles"},
         "Mall": {"name": "ShopCharge Hub", "address": "404 Mall Dr", "distance": "0.7 miles"},
         "Park": {"name": "NatureCharge Point", "address": "505 Park St", "distance": "0.8 miles"},
+        "Cinema": {"name": "MovieCharge Hub", "address": "606 Movie Ave", "distance": "0.9 miles"},
     }
     return stations.get(location, {"name": "Unknown", "address": "N/A", "distance": "N/A"})
 
 @function_tool
 def fastestStation(destination: str):
-    """Finds the charging station closest to the user's destination."""
+    """The least deviate charging station with respect to direction to a destination."""
     stations = {
         "Grocery Store": {"name": "GreenCharge Station", "address": "123 Green St", "distance": "0.5 miles"},
         "Dry Cleaners": {"name": "EcoCharge Hub", "address": "456 Eco Rd", "distance": "0.3 miles"},
@@ -65,6 +68,7 @@ def fastestStation(destination: str):
         "Restaurant": {"name": "DineCharge Station", "address": "303 Food Ct", "distance": "0.6 miles"},
         "Mall": {"name": "ShopCharge Hub", "address": "404 Mall Dr", "distance": "0.7 miles"},
         "Park": {"name": "NatureCharge Point", "address": "505 Park St", "distance": "0.8 miles"},
+        "Cinema": {"name": "MovieCharge Hub", "address": "606 Movie Ave", "distance": "0.9 miles"},
     }
     return stations.get(destination, {"name": "Unknown", "address": "N/A", "distance": "N/A"})
 
@@ -83,7 +87,7 @@ charging_station_agent = Agent(
     name="Charging Station Expert",
     handoff_description="Specialist agent for finding charging stations",
     instructions=CHARGING_STATION_AGENT_PROMPT,
-    tools=[stationCloseTo, fastestStation, todoList],
-    model="gpt-4o-mini",
+    tools=[stationCloseTo, fastestStation, todoList, WebSearchTool()],
+    model="gpt-4.1-mini",
     #hooks=myHooks,
 )

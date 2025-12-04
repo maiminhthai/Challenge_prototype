@@ -41,5 +41,5 @@ driving_coach_agent = Agent(
     handoff_description="Specialist agent for driving coaching",
     instructions=SYSTEM_PROMPT,
     tools=[userDrivingHabit, efficientDriving],
-    model="gpt-4o-mini",
+    model="gpt-4.1",
 )

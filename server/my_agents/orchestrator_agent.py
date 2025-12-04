@@ -42,6 +42,6 @@ orchestrator_agent = Agent(
     instructions=prompt_with_handoff_instructions(SYSTEM_PROMPT),
     handoffs=[driving_coach_agent, charging_station_agent],
     tools=[userProfile, dateTimeNow],
-    model="gpt-4o-mini",
+    model="gpt-4.1",
 )
 
