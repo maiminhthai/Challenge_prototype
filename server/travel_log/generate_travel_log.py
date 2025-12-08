@@ -6,7 +6,14 @@ def generate_random_time(base_hour, base_minute=0, error_minutes=15):
     """Generates a time string HH:MM with a random error."""
     base_time = datetime(2000, 1, 1, base_hour, base_minute)
     # Random error between -error_minutes and error_minutes
-    error = random.randint(-error_minutes, error_minutes)
+    # Sigma = 5 ensures ~99.7% of values are within +/- 15
+    sigma = error_minutes / 3
+    
+    # Generate float, round to nearest number, convert to int
+    error = int(round(random.gauss(0, sigma)))
+    
+    # Clamp to strictly ensure it stays between -error_minutes and error_minutes
+    error = max(-error_minutes, min(error_minutes, error))
     
     actual_time = base_time + timedelta(minutes=error)
     return actual_time.strftime("%H:%M")
@@ -109,19 +116,7 @@ def main():
                 
                 # 3. Gym (19:00) -> Home (20:00)
                 t3_start = generate_random_time(19)
-                t3_end = generate_random_time(20) # 19:30 target, so base 19:30?
-                # Prompt: "At 19 he goes... He arrives home at 19:30."
-                # Let's use base 19 for start, base 19:30 for end.
-                # My helper takes hour. I'll adjust manually.
-                
-                # Start 19:00 + 0-30m
-                t3_s_dt = datetime(2000,1,1,19,0) + timedelta(minutes=random.randint(0,30))
-                t3_start = t3_s_dt.strftime("%H:%M")
-                
-                # End 19:30 + 0-30m
-                t3_e_dt = datetime(2000,1,1,19,30) + timedelta(minutes=random.randint(0,30))
-                t3_end = t3_e_dt.strftime("%H:%M")
-                
+                t3_end = generate_random_time(19, 30)
                 daily_trips.append({
                     "Date": current_date.strftime("%Y-%m-%d"),
                     "Day": current_date.strftime("%A"),
