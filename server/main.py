@@ -67,25 +67,26 @@ def handle_audio(data):
     """
     print("Received audio data")
     try:
-        audio_file = io.BytesIO(data)
-        audio_array, sample_rate = sf.read(audio_file, dtype='float32')
-        loop = asyncio.new_event_loop()
-        response = loop.run_until_complete(
-            get_voice_response(audio_array)
-        )
-        # Ensure response is a flat numpy array
-        if isinstance(response, list) and len(response) > 0:
-            response = np.concatenate(response)
-        elif isinstance(response, list):
-            response = np.array([], dtype=np.float32)
+        # audio_file = io.BytesIO(data)
+        # audio_array, sample_rate = sf.read(audio_file, dtype='float32')
+        # loop = asyncio.new_event_loop()
+        # response = loop.run_until_complete(
+        #     get_voice_response(audio_array)
+        # )
+        # # Ensure response is a flat numpy array
+        # if isinstance(response, list) and len(response) > 0:
+        #     response = np.concatenate(response)
+        # elif isinstance(response, list):
+        #     response = np.array([], dtype=np.float32)
             
-        print(f"Response shape: {response.shape}")
+        # print(f"Response shape: {response.shape}")
 
-        out_buffer = io.BytesIO()
-        sf.write(out_buffer, response, sample_rate, format='WAV')
-        bot_response = out_buffer.getvalue()
+        # out_buffer = io.BytesIO()
+        # sf.write(out_buffer, response, sample_rate, format='WAV')
+        # bot_response = out_buffer.getvalue()
         
-        emit('audio', bot_response, broadcast=False)
+        # emit('audio', bot_response, broadcast=False)
+        emit('message', {'user': 'Bot', 'text': "Feature not available yet"}, broadcast=False)
 
     except Exception as e:
         print(f"Error processing audio: {e}")

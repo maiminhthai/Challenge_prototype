@@ -1,18 +1,5 @@
 from agents import Agent, function_tool, AgentHooks, RunContextWrapper, WebSearchTool
-import os
 
-CONVERSATION_EXAMPLE = ""
-
-# Get path to the prompt refining pipeline directory relative to this file
-current_dir = os.path.dirname(os.path.abspath(__file__))
-pipeline_dir = os.path.join(os.path.dirname(current_dir), "propmt_refining_pipeline")
-log_file_path = os.path.join(pipeline_dir, "conversation_log.txt")
-
-try:
-    with open(log_file_path, "r") as f:
-        CONVERSATION_EXAMPLE = f.read()
-except FileNotFoundError:
-    CONVERSATION_EXAMPLE = ""
 
 CHARGING_STATION_AGENT_PROMPT = """
 You are a navigation assistant that helps users find EV charging stations based on their needs. Be nice and friendly.
@@ -34,19 +21,16 @@ Your task:
 
 EV car take very long time to charge. Your task is to help user save time by finding chargings station that are the most convinient for them.
 First find out is there anything that the user need to do.
-Then find out if there is a station that allow user to charge while doing this task.
+Then findout if there is a station that allow user to charge while doing this task.
 
 Suggest a few options. Answer with the station name, address, distance and the reason why this station is chosen.
-
-Here is an example of a conversation:
-{CONVERSATION_EXAMPLE}
 """
 
 @function_tool
 def todoList():
     """Returns user's current to-do list with time and destinations."""
     return [
-        {"task": "Grocery Shopping", "location": "Grocery Store"},
+        {"task": "grocery shopping", "location": "Grocery Store"},
     ]
 
 @function_tool

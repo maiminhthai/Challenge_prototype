@@ -1,0 +1,9 @@
+User (System): SYSTEM: Your battery is low.
+
+Agent: Your battery is low, so charging soon is important. You have a grocery shopping task at the Grocery Store. There is a GreenCharge Station very close to the Grocery Store, just 0.5 miles away. You can charge your car there while doing your shopping. 
+
+Another option is the OfficeCharge Spot near your work location, only 0.2 miles away, which could be convenient if you want to charge before or after going to work.
+
+I recommend the GreenCharge Station at 123 Green St because you can conveniently charge while doing your grocery shopping, saving time. Would you like directions to this station or more options?
+
+Critic: SATISFIED
