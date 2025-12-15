@@ -1,32 +1,20 @@
 #root {
-  margin: 0 auto;
-  padding: 2rem;
-}
-
-.container {
-  display: grid;
-  justify-content: center;
-  align-items: center;
-  place-items: center;
-  height: 100%;
+  margin: 0;
+  padding: 0;
   width: 100%;
-  gap: 1rem;
+  height: 100%;
 }
 
-.chat-box {
-  width: 1000px;
-  height: 500px;
-  border: 1px solid #444;
-  border-radius: 8px;
-  display: flex;
-  flex-direction: column;
-  background-color: #1e1e1e;
+.chat-dropdown-hover:hover .dropdown-menu {
+  display: block;
+  margin-top: 0;
 }
 
-.chat-messages {
-  flex: 1;
-  padding: 1rem;
-  overflow-y: auto;
-  border-bottom: 1px solid #444;
-  width: 1000px;
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+.spinning-border {
+  animation: spin 2s linear infinite;
 }
