@@ -1,6 +1,5 @@
-import numpy as np
 from flask_socketio import SocketIO, emit
-from flask import Flask, request, make_response, jsonify
+from flask import Flask
 from flask_cors import CORS
 import asyncio
 from my_agents.workflow import get_voice_response, get_message_response

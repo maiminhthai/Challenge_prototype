@@ -121,9 +121,22 @@ const App: React.FC = () => {
         ) : (
           <button onClick={stopRecording} style={{ backgroundColor: '#f44336' }}>Stop Recording</button>
         )}
-        <button onClick={lowBatteryMessage}>Low Battery</button>
-        <button onClick={heavyTrafficMessage}>Heavy Traffic</button>
-        <button onClick={lowTrafficMessage}>Low Traffic</button>
+        <select
+          onChange={(e) => {
+            const val = e.target.value;
+            if (val === 'lowBattery') lowBatteryMessage();
+            else if (val === 'heavyTraffic') heavyTrafficMessage();
+            else if (val === 'lowTraffic') lowTrafficMessage();
+            e.target.value = '';
+          }}
+          defaultValue=""
+          style={{ marginLeft: '10px', padding: '5px' }}
+        >
+          <option value="" disabled>Select Scenario</option>
+          <option value="lowBattery">Low Battery</option>
+          <option value="heavyTraffic">Heavy Traffic</option>
+          <option value="lowTraffic">Low Traffic</option>
+        </select>
       </div>
     </div>
   );

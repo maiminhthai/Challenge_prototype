@@ -1,7 +1,6 @@
-from agents.voice import AudioInput, VoicePipeline,  SingleAgentVoiceWorkflow
 from my_agents.orchestrator_agent import orchestrator_agent
 from agents import Runner, OpenAIConversationsSession
-from openai import OpenAI, AsyncOpenAI
+from openai import OpenAI
 import io
 from dotenv import load_dotenv
 # --- Load Environment Variables ---
@@ -12,6 +11,7 @@ client = OpenAI()
 session = OpenAIConversationsSession()
 
 async def get_voice_response(data):
+    # Speech to Text
     audio_file = io.BytesIO(data)
     audio_file.name = "audio.wav"
     transcription = client.audio.transcriptions.create(
@@ -19,13 +19,13 @@ async def get_voice_response(data):
         file=audio_file, 
         response_format="text"
     )
-
+    # Get Response
     run_result = await Runner.run(orchestrator_agent, transcription, session=session)
     text = run_result.final_output
-
+    # Text to Speech
     response = client.audio.speech.create(
         model="tts-1",
-        voice="coral",
+        voice="alloy",
         input=text,
         response_format="wav",
     )
@@ -33,12 +33,13 @@ async def get_voice_response(data):
     return text, audio
 
 async def get_message_response(message):
+    # Get Response
     run_result = await Runner.run(orchestrator_agent, message, session=session)
     text = run_result.final_output
-    
+    # Text to Speech
     response = client.audio.speech.create(
         model="tts-1",
-        voice="coral",
+        voice="alloy",
         input=text,
         response_format="wav",
     )
