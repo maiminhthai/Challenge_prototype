@@ -11,10 +11,38 @@
 }
 
 @keyframes spin {
-  0% { transform: rotate(0deg); }
-  100% { transform: rotate(360deg); }
+  0% {
+    transform: rotate(0deg);
+  }
+
+  100% {
+    transform: rotate(360deg);
+  }
 }
 
 .spinning-border {
   animation: spin 2s linear infinite;
+}
+
+.bottom-bar-icon {
+  font-size: 1.5rem;
+  color: #888;
+  cursor: pointer;
+  transition: color 0.2s;
+}
+
+.bottom-bar-icon:hover {
+  color: white;
+}
+
+.temp-control {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  cursor: pointer;
+}
+
+.temp-text {
+  font-size: 1.2rem;
+  font-weight: bold;
 }

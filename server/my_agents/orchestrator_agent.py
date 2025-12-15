@@ -2,6 +2,8 @@ from agents import Agent, function_tool, WebSearchTool
 from my_agents.driving_coach_agent import driving_coach_agent
 from my_agents.charging_station_agent import charging_station_agent
 from agents.extensions.handoff_prompt import prompt_with_handoff_instructions
+from my_agents.scraper import scrape_google_maps, scrape_nearby 
+
 
 HOME = "Via Trana, 19, 10138 Torino TO"
 WORK = "Corso Duca degli Abruzzi, 24, 10129 Torino TO"
@@ -75,12 +77,61 @@ You have access to:
 . dateTimeNow() to find the current date and time.
 . currentUserLocation() to find the current user location.
 . WebSearchTool() to search the web.
+. nearby(address: str, query: str) to find points of interest (e.g supermarkets, restaurants, etc.) close to the given address.
+. findStation(query: str, currentLocation: str) to find points of interest (e.g supermarkets, restaurants, etc.) close to the current location.
 
 When a question is related to driving efficiency or finding EV charging stations,
 you should hand off the conversation to the appropriate specialist agent:
 - driving_coach_agent for driving efficiency advice.
 - charging_station_agent for finding EV charging stations.
 """
+
+@function_tool
+async def nearby(address: str, query: str):
+    """
+    address: str: the address to find locations close to.
+    query: str: the query to find locations according to.
+    Return a list of locations according to the query (e.g supermarket, restaurant, etc.) that are close to the given address.
+    Each location has the following format:
+    {
+        "Name": name,
+        "Rating": rating,
+        "URL": url,
+        "Address": address, 
+        "Phone": phone,
+        "Website": website,
+        "Charger Types": charger_types,
+        "Route Time": route_time,
+        "Route Distance": route_distance,
+    }
+    Some field can be an empty string if the information is not available.
+    """
+    print("calling scrape_nearby")
+    return await scrape_nearby(address, query)
+
+@function_tool
+async def findStation(query: str, currentLocation: str):
+    """
+    query: str: the query to find locations according to.
+    currentLocation: str: the current location of the user.
+    Return a list of locations according to the query (e.g charging station, restaurant, etc.) close to the given location.
+    Each location has the following format:
+    {
+        "Name": name,
+        "Rating": rating,
+        "URL": url,
+        "Address": address, 
+        "Phone": phone,
+        "Website": website,
+        "Charger Types": charger_types,
+        "Route Time": route_time,
+        "Route Distance": route_distance,
+    }
+    To find charging station use "charging station" as query.
+    Some field can be an empty string if the information is not available.
+    """
+    print("calling scrape_google_maps")
+    return await scrape_google_maps(query, currentLocation)
 
 @function_tool
 def userTravelHabits():
@@ -129,7 +180,7 @@ orchestrator_agent = Agent(
     name="Orchestrator Agent",
     instructions=prompt_with_handoff_instructions(SYSTEM_PROMPT),
     handoffs=[driving_coach_agent, charging_station_agent],
-    tools=[userTravelHabits, dateTimeNow, currentUserLocation, WebSearchTool()],
-    model="gpt-4.1-mini",
+    tools=[userTravelHabits, dateTimeNow, currentUserLocation, nearby, findStation, WebSearchTool()],
+    model="gpt-5",
 )
 
