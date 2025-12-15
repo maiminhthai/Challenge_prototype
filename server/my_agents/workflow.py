@@ -1,28 +1,46 @@
 from agents.voice import AudioInput, VoicePipeline,  SingleAgentVoiceWorkflow
 from my_agents.orchestrator_agent import orchestrator_agent
 from agents import Runner, OpenAIConversationsSession
-
+from openai import OpenAI, AsyncOpenAI
+import io
 from dotenv import load_dotenv
 # --- Load Environment Variables ---
 load_dotenv()
 
+client = OpenAI()
 
 session = OpenAIConversationsSession()
 
-workflow = SingleAgentVoiceWorkflow(
-    agent=orchestrator_agent,
-)
-
-voice_pipeline = VoicePipeline(workflow=workflow, stt_model="whisper-1", tts_model="tts-1")
-
 async def get_voice_response(data):
-    audio_input = AudioInput(buffer=data)
-    result = await voice_pipeline.run(audio_input, session=session)
-    audio_output = []
-    async for event in result.stream():
-        if event.type == "voice_stream_event_audio":
-            audio_output.append(event.data)
-    return audio_output
+    audio_file = io.BytesIO(data)
+    audio_file.name = "audio.wav"
+    transcription = client.audio.transcriptions.create(
+        model="whisper-1", 
+        file=audio_file, 
+        response_format="text"
+    )
 
-async def get_message_response(user_message):
-    return await Runner.run(orchestrator_agent, user_message, session=session)
+    run_result = await Runner.run(orchestrator_agent, transcription, session=session)
+    text = run_result.final_output
+
+    response = client.audio.speech.create(
+        model="tts-1",
+        voice="coral",
+        input=text,
+        response_format="wav",
+    )
+    audio = response.content
+    return text, audio
+
+async def get_message_response(message):
+    run_result = await Runner.run(orchestrator_agent, message, session=session)
+    text = run_result.final_output
+    
+    response = client.audio.speech.create(
+        model="tts-1",
+        voice="coral",
+        input=text,
+        response_format="wav",
+    )
+    audio = response.content
+    return text, audio

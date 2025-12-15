@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import io from 'socket.io-client';
 import './App.css';
+import { WavRecorder } from './WavRecorder';
 
 
 interface ChatMessage {
@@ -15,8 +16,7 @@ const App: React.FC = () => {
   const [messages, setMessages] = useState<ChatMessage[]>([]);
   const [input, setInput] = useState<string>('');
   const [isRecording, setIsRecording] = useState<boolean>(false);
-  const mediaRecorderRef = useRef<MediaRecorder | null>(null);
-  const audioChunksRef = useRef<Blob[]>([]);
+
 
   useEffect(() => {
     socket.on('message', (message: ChatMessage) => {
@@ -46,39 +46,31 @@ const App: React.FC = () => {
     }
   };
 
+  // Use a ref to hold the WavRecorder instance
+  const wavRecorderRef = useRef<WavRecorder | null>(null);
+
   const startRecording = async () => {
     try {
-      const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
-      const mediaRecorder = new MediaRecorder(stream);
-      mediaRecorderRef.current = mediaRecorder;
-      audioChunksRef.current = [];
-
-      mediaRecorder.ondataavailable = (event) => {
-        if (event.data.size > 0) {
-          audioChunksRef.current.push(event.data);
-        }
-      };
-
-      mediaRecorder.onstop = () => {
-        const audioBlob = new Blob(audioChunksRef.current, { type: 'audio/webm' });
-        // Emit the blob directly; socket.io client handles it
-        socket.emit('send_audio', audioBlob);
-        console.log("Sent audio to server");
-      };
-
-      mediaRecorder.start();
+      const recorder = new WavRecorder();
+      await recorder.start();
+      wavRecorderRef.current = recorder;
       setIsRecording(true);
     } catch (err) {
       console.error("Error accessing microphone:", err);
     }
   };
 
-  const stopRecording = () => {
-    if (mediaRecorderRef.current && isRecording) {
-      mediaRecorderRef.current.stop();
+  const stopRecording = async () => {
+    if (wavRecorderRef.current && isRecording) {
+      const audioBlob = await wavRecorderRef.current.stop();
       setIsRecording(false);
-      // Stop all tracks to release the microphone
-      mediaRecorderRef.current.stream.getTracks().forEach(track => track.stop());
+
+      // Emit the blob directly; socket.io client handles it
+      socket.emit('send_audio', audioBlob);
+      console.log("Sent audio to server");
+
+      // Reset ref
+      wavRecorderRef.current = null;
     }
   };
 

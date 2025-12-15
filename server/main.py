@@ -4,14 +4,12 @@ from flask import Flask, request, make_response, jsonify
 from flask_cors import CORS
 import asyncio
 from my_agents.workflow import get_voice_response, get_message_response
-import io
-import soundfile as sf
 
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'your_secret_key'
-cors = CORS(app, resources={r"/*": {"origins": "*"}})
-socketio = SocketIO(app, cors_allowed_origins="*")
+cors = CORS(app, resources={r"/*": {"origins": "http://localhost:5173"}})
+socketio = SocketIO(app, cors_allowed_origins="http://localhost:5173")
 
 
 # --- SocketIO Events ---
@@ -21,12 +19,13 @@ def handle_connect():
     print('Client connected')
     try:
         loop = asyncio.new_event_loop()
-        bot_response = loop.run_until_complete(
+        bot_response, audio = loop.run_until_complete(
             get_message_response("SYSTEM: START")
         )
-        print(f"Bot response: {bot_response.final_output}")
+        print(f"Bot response: {bot_response}")
         # 3. Send the bot's response back to the user
-        emit('message', {'user': 'Bot', 'text': bot_response.final_output}, broadcast=False)
+        emit('audio', audio, broadcast=False)
+        emit('message', {'user': 'Bot', 'text': bot_response}, broadcast=False)
     except Exception as e:
         print("Exception: ", e)
         emit('message', {'user': 'Bot', 'text': "Sorry, I'm having trouble responding right now."}, broadcast=False)
@@ -48,12 +47,13 @@ def handle_user_message(data):
     # 2. Get the bot's response4
     try:
         loop = asyncio.new_event_loop()
-        bot_response = loop.run_until_complete(
+        bot_response, audio = loop.run_until_complete(
             get_message_response(user_message)
         )
-        print(f"Bot response: {bot_response.final_output}")
+        print(f"Bot response: {bot_response}")
         # 3. Send the bot's response back to the user
-        emit('message', {'user': 'Bot', 'text': bot_response.final_output}, broadcast=False)
+        emit('audio', audio, broadcast=False)
+        emit('message', {'user': 'Bot', 'text': bot_response}, broadcast=False)
     except Exception as e:
         print("Exception: ", e)
         emit('message', {'user': 'Bot', 'text': "Sorry, I'm having trouble responding right now."}, broadcast=False)
@@ -67,27 +67,12 @@ def handle_audio(data):
     """
     print("Received audio data")
     try:
-        # audio_file = io.BytesIO(data)
-        # audio_array, sample_rate = sf.read(audio_file, dtype='float32')
-        # loop = asyncio.new_event_loop()
-        # response = loop.run_until_complete(
-        #     get_voice_response(audio_array)
-        # )
-        # # Ensure response is a flat numpy array
-        # if isinstance(response, list) and len(response) > 0:
-        #     response = np.concatenate(response)
-        # elif isinstance(response, list):
-        #     response = np.array([], dtype=np.float32)
-            
-        # print(f"Response shape: {response.shape}")
-
-        # out_buffer = io.BytesIO()
-        # sf.write(out_buffer, response, sample_rate, format='WAV')
-        # bot_response = out_buffer.getvalue()
-        
-        # emit('audio', bot_response, broadcast=False)
-        emit('message', {'user': 'Bot', 'text': "Feature not available yet"}, broadcast=False)
-
+        loop = asyncio.new_event_loop()
+        bot_response, audio = loop.run_until_complete(
+            get_voice_response(data)
+        )
+        emit('message', {'user': 'Bot', 'text': bot_response}, broadcast=False)
+        emit('audio', audio, broadcast=False)
     except Exception as e:
         print(f"Error processing audio: {e}")
         emit('message', {'user': 'System', 'text': f"Error processing audio: {e}"}, broadcast=False)

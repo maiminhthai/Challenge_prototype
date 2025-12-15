@@ -90,5 +90,6 @@ Why this approach?
 provide a better compromize between latency and quality.
 
 ## Questions.
+- Are we heading in the right direction?
 - Is this a good approach?
 - Is there a better way to do this?
