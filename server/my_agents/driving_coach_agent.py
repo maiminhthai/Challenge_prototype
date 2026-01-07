@@ -20,7 +20,7 @@ Keep the tone friendly and motivational.
 """
 
 @function_tool
-def userDrivingHabit():
+async def userDrivingHabit():
     """Returns user's current driving habits during heavy traffic and low traffic."""
     return {
         "heavy traffic": "acceleration: rapid, braking: hard",
@@ -28,7 +28,7 @@ def userDrivingHabit():
     }
 
 @function_tool
-def efficientDriving():
+async def efficientDriving():
     """Returns best practices for energy-efficient driving."""
     return {
         "acceleration": "smooth and gradual",
@@ -41,5 +41,5 @@ driving_coach_agent = Agent(
     handoff_description="Specialist agent for driving coaching",
     instructions=SYSTEM_PROMPT,
     tools=[userDrivingHabit, efficientDriving],
-    model="gpt-4.1-mini",
+    model="gpt-5-mini",
 )

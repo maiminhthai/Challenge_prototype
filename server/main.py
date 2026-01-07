@@ -17,14 +17,7 @@ def handle_connect():
     """Handles new client connections."""
     print('Client connected')
     try:
-        loop = asyncio.new_event_loop()
-        bot_response, audio = loop.run_until_complete(
-            get_message_response("SYSTEM: START")
-        )
-        print(f"Bot response: {bot_response}")
-        # 3. Send the bot's response back to the user
-        emit('audio', audio, broadcast=False)
-        emit('message', {'user': 'Bot', 'text': bot_response}, broadcast=False)
+        emit('message', {'user': 'Bot', 'text': "Client connected"}, broadcast=False)
     except Exception as e:
         print("Exception: ", e)
         emit('message', {'user': 'Bot', 'text': "Sorry, I'm having trouble responding right now."}, broadcast=False)
@@ -46,12 +39,12 @@ def handle_user_message(data):
     # 2. Get the bot's response4
     try:
         loop = asyncio.new_event_loop()
-        bot_response, audio = loop.run_until_complete(
+        bot_response = loop.run_until_complete(
             get_message_response(user_message)
         )
         print(f"Bot response: {bot_response}")
         # 3. Send the bot's response back to the user
-        emit('audio', audio, broadcast=False)
+        #emit('audio', audio, broadcast=False)
         emit('message', {'user': 'Bot', 'text': bot_response}, broadcast=False)
     except Exception as e:
         print("Exception: ", e)

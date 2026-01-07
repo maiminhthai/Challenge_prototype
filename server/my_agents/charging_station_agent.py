@@ -1,4 +1,4 @@
-from agents import Agent, function_tool, AgentHooks, RunContextWrapper, WebSearchTool
+from agents import Agent, function_tool
 from my_agents.scraper import scrape_google_maps, scrape_nearby 
 
 HOME = "Via Trana, 19, 10138 Torino TO"
@@ -136,14 +136,15 @@ Thought: Station X is available near the user's destination.
 Action: Finish[Since you are likely heading home, the most convenient option is the Tesla Supercharger (Station X) near 123 Maple Drive.]
 
 User's charger type is CSS
-Give the final answer only.
 Suggest at most 3 options.
-Answer with the station name, address, distance and the reason why this station is chosen.
+Keep the answer short and concise.
+Answer with the station name, address, distance only and the reason why this station is chosen.
 """
 
 @function_tool
-def todoList():
+async def todoList():
     """Returns user's current to-do list."""
+    print("calling todoList")
     return [
         {"task": "grocery shopping"},
     ]
@@ -196,7 +197,7 @@ async def findStation(query: str, currentLocation: str):
     return await scrape_google_maps(query, currentLocation)
 
 @function_tool
-def userTravelHabits():
+async def userTravelHabits():
     """Returns user's habitual routes and times. In the format of a dictionary.
     The dictionary has the following format:
     {
@@ -218,6 +219,7 @@ def userTravelHabits():
         "end_location": "adress of the ending location of the route"
     }
     """
+    print("calling userTravelHabits")
     return {
         "Monday": [homeToWorkRoute, workToGymRoute, gymToHomeRoute],
         "Tuesday": [homeToWorkRoute, workToGymRoute, gymToHomeRoute],
@@ -229,26 +231,21 @@ def userTravelHabits():
     }
 
 @function_tool
-def dateTimeNow():
+async def dateTimeNow():
     """Returns the current date and time."""
+    print("calling dateTimeNow")
     return "Tuesday, 5:42 PM"
 
 @function_tool
-def currentUserLocation():
+async def currentUserLocation():
     """Returns the current user location."""
+    print("calling currentUserLocation")
     return WORK
-
-#---Uncomment to enable tool usage logging---
-# class MyHooks(AgentHooks):
-#     async def on_tool_start(self, context: RunContextWrapper, agent: Agent, tool) -> None:
-#         print(f"{agent.name} - {tool}")
-# myHooks = MyHooks()
 
 charging_station_agent = Agent(
     name="Charging Station Expert",
     handoff_description="Specialist agent for finding charging stations",
     instructions=CHARGING_STATION_AGENT_PROMPT,
-    tools=[findStation, nearby, todoList, userTravelHabits, dateTimeNow, currentUserLocation, WebSearchTool()],
-    model="gpt-4.1-mini",
-    #hooks=myHooks,
+    tools=[findStation, nearby, todoList, userTravelHabits, dateTimeNow, currentUserLocation],
+    model="gpt-5-mini",
 )

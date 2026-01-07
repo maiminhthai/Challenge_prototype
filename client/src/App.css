@@ -46,3 +46,57 @@
   font-size: 1.2rem;
   font-weight: bold;
 }
+
+/* Navigation Styling Overrides */
+.leaflet-routing-container {
+  background-color: #1e1e1e !important;
+  color: #fff !important;
+  border: 1px solid #444 !important;
+  box-shadow: 0 4px 6px rgba(0,0,0,0.5) !important;
+}
+
+.leaflet-routing-container h2, 
+.leaflet-routing-container h3, 
+.leaflet-routing-container span {
+  color: #fff !important;
+}
+
+.leaflet-routing-alt table tbody tr:hover {
+  background-color: #333 !important;
+  cursor: pointer;
+}
+
+.leaflet-routing-alt-minimized {
+  background-color: #1e1e1e !important;
+  color: #fff !important;
+}
+
+/* Leaflet Bar Overrides to match Dark Theme */
+.leaflet-bar a {
+  background-color: #1e1e1e !important;
+  color: #fff !important;
+  border-bottom: 1px solid #444 !important;
+}
+
+.leaflet-bar a:hover {
+  background-color: #333 !important;
+}
+
+.leaflet-control-geosearch form {
+  background-color: #1e1e1e !important;
+  color: #fff !important;
+  border: 1px solid #444 !important;
+}
+
+.leaflet-control-geosearch .results {
+  background-color: #1e1e1e !important;
+}
+
+.leaflet-control-geosearch .results > * {
+   border-color: #444 !important;
+}
+
+.leaflet-control-geosearch .results > *:hover {
+  background-color: #333 !important;
+  border-color: #444 !important;
+}
