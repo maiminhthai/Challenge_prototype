@@ -8,6 +8,10 @@ interface TopBarProps {
     lowTrafficMessage: () => void;
     batteryLevel: number;
     setBatteryLevel: (level: number) => void;
+    speed: number;
+    setSpeed: (speed: number) => void;
+    temperature: number;
+    setTemperature: (temp: number) => void;
 }
 
 const TopBar: React.FC<TopBarProps> = ({
@@ -18,8 +22,14 @@ const TopBar: React.FC<TopBarProps> = ({
     lowTrafficMessage,
     batteryLevel,
     setBatteryLevel,
+    speed,
+    setSpeed,
+    temperature,
+    setTemperature,
 }) => {
     const [isBatteryOpen, setIsBatteryOpen] = useState(false);
+    const [isSpeedOpen, setIsSpeedOpen] = useState(false);
+    const [isTempOpen, setIsTempOpen] = useState(false);
 
     return (
         <div className="row p-3 border-bottom border-secondary m-0">
@@ -63,6 +73,56 @@ const TopBar: React.FC<TopBarProps> = ({
                             max="100"
                             value={batteryLevel}
                             onChange={(e) => setBatteryLevel(Number(e.target.value))}
+                        />
+                    </div>
+                </div>
+
+                {/* Speed Dropdown */}
+                <div className="dropdown">
+                    <button
+                        className="btn btn-secondary dropdown-toggle"
+                        type="button"
+                        id="speedDropdown"
+                        onClick={() => setIsSpeedOpen(!isSpeedOpen)}
+                        aria-expanded={isSpeedOpen}
+                    >
+                        Speed
+                    </button>
+                    <div className={`dropdown-menu p-3 ${isSpeedOpen ? 'show' : ''}`} aria-labelledby="speedDropdown" style={{ backgroundColor: '#1e1e1e', border: '1px solid #444', minWidth: '200px' }}>
+                        <label htmlFor="speedRange" className="form-label text-white">Speed: {speed} km/h</label>
+                        <input
+                            type="range"
+                            className="form-range"
+                            id="speedRange"
+                            min="0"
+                            max="120"
+                            value={speed}
+                            onChange={(e) => setSpeed(Number(e.target.value))}
+                        />
+                    </div>
+                </div>
+
+                {/* Temperature Dropdown */}
+                <div className="dropdown">
+                    <button
+                        className="btn btn-secondary dropdown-toggle"
+                        type="button"
+                        id="tempDropdown"
+                        onClick={() => setIsTempOpen(!isTempOpen)}
+                        aria-expanded={isTempOpen}
+                    >
+                        Temp
+                    </button>
+                    <div className={`dropdown-menu p-3 ${isTempOpen ? 'show' : ''}`} aria-labelledby="tempDropdown" style={{ backgroundColor: '#1e1e1e', border: '1px solid #444', minWidth: '200px' }}>
+                        <label htmlFor="tempRange" className="form-label text-white">Temp: {temperature}°C</label>
+                        <input
+                            type="range"
+                            className="form-range"
+                            id="tempRange"
+                            min="-10"
+                            max="40"
+                            value={temperature}
+                            onChange={(e) => setTemperature(Number(e.target.value))}
                         />
                     </div>
                 </div>

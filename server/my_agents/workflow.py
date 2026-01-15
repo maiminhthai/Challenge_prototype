@@ -45,12 +45,12 @@ async def get_message_response(message):
         run_result = await Runner.run(orchestrator_agent, message, session=session)
     await session.store_run_usage(run_result)
     text = run_result.final_output
-    # # Text to Speech
-    # response = client.audio.speech.create(
-    #     model="tts-1",
-    #     voice="alloy",
-    #     input=text,
-    #     response_format="wav",
-    # )
-    #audio = response.content
-    return text
+    # Text to Speech
+    response = client.audio.speech.create(
+        model="tts-1",
+        voice="alloy",
+        input=text,
+        response_format="wav",
+    )
+    audio = response.content
+    return text, audio

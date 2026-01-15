@@ -81,7 +81,9 @@ You have access to the following tools:
 6. findStation(query: str, currentLocation: str) -> list
    Finds facilities matching the query (use "charging station") near the current location.
 
-Use the following format:
+First, warn the user that ther car's battery is low.
+
+Use the following example to generate your final response:
 
 Question: the input question from the user
 Thought: you should always think about what to do next in a step-by-step manner
@@ -137,8 +139,11 @@ Action: Finish[Since you are likely heading home, the most convenient option is 
 
 User's charger type is CSS
 Suggest at most 3 options.
+Give the final answer only.
 Keep the answer short and concise.
-Answer with the station name, address, distance only and the reason why this station is chosen.
+Answer with the station name, address, distance and the reason why this station is chosen.
+
+When the user selects a charging station, use navigate() to send the address of the charging station to the client side for navigation.
 """
 
 @function_tool
@@ -242,10 +247,18 @@ async def currentUserLocation():
     print("calling currentUserLocation")
     return WORK
 
+from extensions import socketio  # <--- Import from the new extensions file
+
+@function_tool
+async def navigate(destination: str):
+    """Send the address of the destination to the client side for navigation."""
+    print("Emitting message to client...")
+    socketio.emit('destination', destination, namespace='/')
+
 charging_station_agent = Agent(
     name="Charging Station Expert",
     handoff_description="Specialist agent for finding charging stations",
     instructions=CHARGING_STATION_AGENT_PROMPT,
-    tools=[findStation, nearby, todoList, userTravelHabits, dateTimeNow, currentUserLocation],
-    model="gpt-5-mini",
+    tools=[findStation, nearby, todoList, userTravelHabits, dateTimeNow, currentUserLocation, navigate],
+    model="gpt-5",
 )

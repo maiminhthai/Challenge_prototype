@@ -1,6 +1,10 @@
 import React from 'react';
 
-const BottomBar: React.FC = () => {
+interface BottomBarProps {
+    temperature: number;
+}
+
+const BottomBar: React.FC<BottomBarProps> = ({ temperature }) => {
     return (
         <div className="row bg-black p-3 mt-auto align-items-center justify-content-between text-white border-top border-secondary m-0 w-100">
             <div className="col-auto d-flex gap-4 align-items-center">
@@ -12,7 +16,7 @@ const BottomBar: React.FC = () => {
                 {/* Driver Temp */}
                 <div className="temp-control text-white">
                     <i className="bi bi-chevron-up small"></i>
-                    <span className="temp-text">20°</span>
+                    <span className="temp-text">{temperature}°</span>
                     <i className="bi bi-chevron-down small"></i>
                 </div>
 
@@ -22,7 +26,7 @@ const BottomBar: React.FC = () => {
                 {/* Passenger Temp */}
                 <div className="temp-control text-white">
                     <i className="bi bi-chevron-up small"></i>
-                    <span className="temp-text">20°</span>
+                    <span className="temp-text">{temperature}°</span>
                     <i className="bi bi-chevron-down small"></i>
                 </div>
             </div>

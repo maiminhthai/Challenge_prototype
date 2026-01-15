@@ -22,7 +22,8 @@ const App: React.FC = () => {
   const [isRecording, setIsRecording] = useState<boolean>(false);
   const [isScenariosOpen, setIsScenariosOpen] = useState<boolean>(false);
   const [batteryLevel, setBatteryLevel] = useState<number>(100);
-  const [speed, setSpeed] = useState<number>(63);
+  const [speed, setSpeed] = useState<number>(40);
+  const [temperature, setTemperature] = useState<number>(20);
   const [destination, setDestination] = useState<string>('');
 
 
@@ -119,6 +120,14 @@ const App: React.FC = () => {
     }
   }, [batteryLevel]);
 
+  useEffect(() => {
+    const now = Date.now();
+    if (temperature >= 20 && speed >= 70 && now - lastBatteryWarningTime.current > 5000) {
+      socket.emit('send_message', { text: 'SYSTEM: driving efficiency: temperature = ' + temperature + '°C and speed = ' + speed + 'km/h' });
+      lastBatteryWarningTime.current = now;
+    }
+  }, [temperature, speed]);
+
   return (
     <Context.Provider value={{ batteryLevel, setBatteryLevel }}>
       <div className="container-fluid vh-100 d-flex flex-column bg-dark text-white p-0">
@@ -130,6 +139,10 @@ const App: React.FC = () => {
           lowTrafficMessage={lowTrafficMessage}
           batteryLevel={batteryLevel}
           setBatteryLevel={setBatteryLevel}
+          speed={speed}
+          setSpeed={setSpeed}
+          temperature={temperature}
+          setTemperature={setTemperature}
         />
 
         {/* Main Content Area */}
@@ -155,7 +168,7 @@ const App: React.FC = () => {
           </div>
         </div>
 
-        <BottomBar />
+        <BottomBar temperature={temperature} />
       </div>
     </Context.Provider>
   );

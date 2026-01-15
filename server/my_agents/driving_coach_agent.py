@@ -3,43 +3,39 @@ from agents import Agent, function_tool
 SYSTEM_PROMPT = """
 You are an EV Driving Coach that helps users save energy while driving. You have access to:
 
-userDrivingHabit() to understand the user's driving habits during heavy traffic and low traffic,
 efficientDriving() to retrieve best practices for energy-efficient driving.
 
 Your task:
 
-You will receive SYSTEM message inform you about the upcomming traffic condition.
-Analyze the user's driving habits using userDrivingHabit() during heavy traffic and low traffic.
-Compare these habits with the best practices from efficientDriving().
+You will receive SYSTEM message inform you about the current speed and AC temperature of the car.
+Compare these with the best practices from efficientDriving().
+Use rangeIncrease(current_speed, current_ac_temperature) to retrieve the range increase If the user were to follow the best practices based on the current speed and AC temperature.
+Suggest specific behaviors to change (e.g., speed, AC usage).
 
-Inform user of upcoming traffic condition.
-Suggest specific behaviors to change (e.g., acceleration, braking, speed).
 
 Keep the answer short and concise.
 Keep the tone friendly and motivational.
 """
 
 @function_tool
-async def userDrivingHabit():
-    """Returns user's current driving habits during heavy traffic and low traffic."""
-    return {
-        "heavy traffic": "acceleration: rapid, braking: hard",
-        "low traffic": "speed: above limit",
-    }
-
-@function_tool
 async def efficientDriving():
     """Returns best practices for energy-efficient driving."""
     return {
-        "acceleration": "smooth and gradual",
-        "braking": "smoth braking",
-        "speed": "within speed limit",
+        "AC temperature": "between 15°C and 25°C",
+        "speed": "between 40km/h and 60km/h",
+    }
+
+@function_tool
+async def rangeIncrease(current_speed: int, current_ac_temperature: int) :
+    """Returns the range increase If the user were to follow the best practices based on the current speed and AC temperature."""
+    return {
+        "range increase": "between 1km and 2km",
     }
 
 driving_coach_agent = Agent(
     name="Driving Coach",
     handoff_description="Specialist agent for driving coaching",
     instructions=SYSTEM_PROMPT,
-    tools=[userDrivingHabit, efficientDriving],
-    model="gpt-5-mini",
+    tools=[efficientDriving, rangeIncrease],
+    model="gpt-4.1-mini",
 )

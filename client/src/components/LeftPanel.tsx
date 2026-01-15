@@ -48,7 +48,7 @@ const LeftPanel: React.FC<LeftPanelProps> = ({
                 {/* Speed */}
                 <div className="text-center">
                     <h1 className="display-1 fw-bold m-0" style={{ lineHeight: '0.8' }}>{speed}</h1>
-                    <small className="text-secondary fw-bold">MPH</small>
+                    <small className="text-secondary fw-bold">Km/h</small>
                 </div>
 
                 {/* Battery */}

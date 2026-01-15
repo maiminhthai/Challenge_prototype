@@ -184,8 +184,8 @@ async def scrape_google_maps(search_query, origin_address):
         
         # Search
         print(f"Searching for '{search_query}'...")
-        await page.wait_for_selector('input#searchboxinput', timeout=10000)
-        await page.locator('input#searchboxinput').fill(search_query)
+        await page.wait_for_selector('input[name="q"]', timeout=10000)
+        await page.locator('input[name="q"]').fill(search_query)
         await page.keyboard.press("Enter")
         
         # Wait for results to load
@@ -221,8 +221,8 @@ async def scrape_nearby(address, search_query):
         
         # 1. Search for the address (Our Origin)
         print(f"Searching for target address: {address}...")
-        await page.wait_for_selector('input#searchboxinput', timeout=10000)
-        await page.locator('input#searchboxinput').fill(address)
+        await page.wait_for_selector('input[name="q"]', timeout=10000)
+        await page.locator('input[name="q"]').fill(address)
         await page.keyboard.press("Enter")
         
         # Wait for address details...
@@ -249,8 +249,8 @@ async def scrape_nearby(address, search_query):
             
             # 3. Search for Query (e.g. Restaurants)
             print(f"Searching for nearby '{search_query}'...")
-            await page.wait_for_selector('input#searchboxinput', timeout=5000)
-            await page.locator('input#searchboxinput').fill(search_query)
+            await page.wait_for_selector('input[name="q"]', timeout=5000)
+            await page.locator('input[name="q"]').fill(search_query)
             await page.keyboard.press("Enter")
             
             # 4. Extract Results

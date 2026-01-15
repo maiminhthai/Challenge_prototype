@@ -131,5 +131,5 @@ default_agent = Agent(
     name="Default Agent",
     instructions=SYSTEM_PROMPT,
     tools=[userTravelHabits, dateTimeNow, currentUserLocation, todoList],
-    model="gpt-5-mini",
+    model="gpt-4.1-mini",
 )
