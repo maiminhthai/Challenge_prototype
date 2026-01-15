@@ -1,4 +1,5 @@
-from flask_socketio import SocketIO, emit
+from flask_socketio import emit
+from extensions import socketio
 from flask import Flask
 from flask_cors import CORS
 import asyncio
@@ -8,7 +9,7 @@ from my_agents.workflow import get_voice_response, get_message_response
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'your_secret_key'
 cors = CORS(app, resources={r"/*": {"origins": "http://localhost:5173"}})
-socketio = SocketIO(app, cors_allowed_origins="http://localhost:5173")
+socketio.init_app(app, cors_allowed_origins="http://localhost:5173")
 
 
 # --- SocketIO Events ---

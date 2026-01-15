@@ -1,11 +1,10 @@
 import React, { useEffect, useState } from 'react';
-import { MapContainer, TileLayer, Marker, Popup, useMap, useMapEvents } from 'react-leaflet';
-import { GeoSearchControl, OpenStreetMapProvider } from 'leaflet-geosearch';
+import { MapContainer, TileLayer, Marker, Popup, useMap } from 'react-leaflet';
 import L from 'leaflet';
 import 'leaflet/dist/leaflet.css';
-import 'leaflet-geosearch/dist/geosearch.css';
 import 'leaflet-routing-machine';
 import 'leaflet-routing-machine/dist/leaflet-routing-machine.css';
+import { OpenStreetMapProvider } from 'leaflet-geosearch';
 
 // Fix for default Leaflet icons in Webpack/Vite
 // @ts-ignore
@@ -16,73 +15,29 @@ L.Icon.Default.mergeOptions({
     shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.7.1/images/marker-shadow.png',
 });
 
-// Search Control Component
-const SearchControl: React.FC<{ onResult: (pos: [number, number]) => void }> = ({ onResult }) => {
-    const map = useMap();
-
-    useEffect(() => {
-        // @ts-ignore
-        const provider = new OpenStreetMapProvider();
-
-        // @ts-ignore
-        const searchControl = new GeoSearchControl({
-            provider: provider,
-            style: 'bar',
-            showMarker: true,
-            showPopup: false,
-            autoClose: true,
-            retainZoomLevel: false,
-            animateZoom: true,
-            keepResult: true,
-            searchLabel: 'Enter address',
-        });
-
-        map.addControl(searchControl);
-
-        // Listen for search results
-        const handleShowLocation = (e: any) => {
-            if (e.location && e.location.y && e.location.x) {
-                onResult([Number(e.location.y), Number(e.location.x)]);
-            }
-        };
-
-        map.on('geosearch/showlocation', handleShowLocation);
-
-        return () => {
-            map.removeControl(searchControl);
-            map.off('geosearch/showlocation', handleShowLocation);
-        };
-    }, [map, onResult]);
-
-    return null;
-};
-
 // Routing Control Component
-const RoutingControl: React.FC<{ start: [number, number]; end: [number, number] }> = ({ start, end }) => {
+const RoutingControl: React.FC<{ start: [number, number]; end: [number, number] | null }> = ({ start, end }) => {
     const map = useMap();
 
     useEffect(() => {
-        if (!map) return;
+        if (!start || !end) return;
 
-        const routingOptions: any = {
+        const routingControl = L.Routing.control({
             waypoints: [
                 L.latLng(start[0], start[1]),
                 L.latLng(end[0], end[1])
             ],
-            routeWhileDragging: true,
+            routeWhileDragging: false,
             showAlternatives: true,
             fitSelectedRoutes: true,
             lineOptions: {
                 styles: [{ color: '#6FA1EC', weight: 4 }],
-                extendToWaypoints: true,
+                extendToWaypoints: false,
                 missingRouteTolerance: 0
             },
-            show: false, // Hide the textual itinerary helper
-            addWaypoints: false,
+            // @ts-ignore
             createMarker: function () { return null; }
-        };
-
-        const routingControl = L.Routing.control(routingOptions).addTo(map);
+        }).addTo(map);
 
         return () => {
             map.removeControl(routingControl);
@@ -92,59 +47,53 @@ const RoutingControl: React.FC<{ start: [number, number]; end: [number, number] 
     return null;
 };
 
-// Map Click Handler Component
-const MapClickHandler: React.FC<{ setDestination: React.Dispatch<React.SetStateAction<[number, number] | null>> }> = ({ setDestination }) => {
-    useMapEvents({
-        click: (e) => {
-            setDestination([e.latlng.lat, e.latlng.lng]);
-        },
-    });
-    return null;
-};
+interface MapProps {
+    destination: string;
+}
 
-const Map: React.FC = () => {
-    // Start Address
-    const startAddress = "Corso Duca degli Abruzzi, 24, 10129 Torino TO";
-    const [startCoords, setStartCoords] = useState<[number, number] | null>(null);
-    const [destination, setDestination] = useState<[number, number] | null>(null);
+const Map: React.FC<MapProps> = ({ destination }) => {
+    // Default center position (Turin, Italy)
+    const startPosition: [number, number] = [45.0624332, 7.6596305];
+    const [destCoords, setDestCoords] = useState<[number, number] | null>(null);
 
-    // Geocode start address on mount
+    // Geocode destination when it changes
     useEffect(() => {
-        const geocodeAddress = async (address: string) => {
+        if (!destination) return;
+
+        const geocodeDestination = async () => {
             // @ts-ignore
             const provider = new OpenStreetMapProvider();
-            const results = await provider.search({ query: address });
+            const results = await provider.search({ query: destination });
             if (results && results.length > 0) {
-                setStartCoords([Number(results[0].y), Number(results[0].x)]);
+                setDestCoords([Number(results[0].y), Number(results[0].x)]);
             }
         };
 
-        geocodeAddress(startAddress);
-    }, []);
-
-    if (!startCoords) return <div className="text-white p-3">Loading map...</div>;
+        geocodeDestination();
+    }, [destination]);
 
     return (
-        <MapContainer center={startCoords} zoom={13} scrollWheelZoom={true} style={{ height: '100%', width: '100%' }}>
-            <SearchControl onResult={setDestination} />
-            <MapClickHandler setDestination={setDestination} />
-            {destination && <RoutingControl start={startCoords} end={destination} />}
-
+        <MapContainer center={startPosition} zoom={13} scrollWheelZoom={true} style={{ height: '100%', width: '100%' }}>
             <TileLayer
                 attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
                 url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
             />
+
             {/* Start Marker */}
-            <Marker position={startCoords}>
-                <Popup>Start: {startAddress}</Popup>
+            <Marker position={startPosition}>
+                <Popup>Start Position</Popup>
             </Marker>
 
             {/* Destination Marker */}
-            {destination && (
-                <Marker position={destination}>
-                    <Popup>Destination</Popup>
+            {destCoords && (
+                <Marker position={destCoords}>
+                    <Popup>{destination}</Popup>
                 </Marker>
             )}
+
+            {/* Routing */}
+            {destCoords && <RoutingControl start={startPosition} end={destCoords} />}
+
         </MapContainer>
     );
 };

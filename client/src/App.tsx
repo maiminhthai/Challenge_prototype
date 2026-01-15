@@ -23,6 +23,7 @@ const App: React.FC = () => {
   const [isScenariosOpen, setIsScenariosOpen] = useState<boolean>(false);
   const [batteryLevel, setBatteryLevel] = useState<number>(100);
   const [speed, setSpeed] = useState<number>(63);
+  const [destination, setDestination] = useState<string>('');
 
 
   useEffect(() => {
@@ -38,9 +39,14 @@ const App: React.FC = () => {
       audio.play();
     });
 
+    socket.on('destination', (des: string) => {
+      setDestination(des);
+    });
+
     return () => {
       socket.off('message');
       socket.off('audio');
+      socket.off('destination');
     };
   }, []);
 
@@ -102,6 +108,17 @@ const App: React.FC = () => {
     setIsScenariosOpen(false);
   };
 
+  const lastBatteryWarningTime = useRef<number>(0);
+
+  // Monitor battery level and trigger warning at 20% or less (throttled to 5s)
+  useEffect(() => {
+    const now = Date.now();
+    if (batteryLevel <= 20 && now - lastBatteryWarningTime.current > 5000) {
+      lowBatteryMessage();
+      lastBatteryWarningTime.current = now;
+    }
+  }, [batteryLevel]);
+
   return (
     <Context.Provider value={{ batteryLevel, setBatteryLevel }}>
       <div className="container-fluid vh-100 d-flex flex-column bg-dark text-white p-0">
@@ -134,7 +151,7 @@ const App: React.FC = () => {
 
           {/* Right Panel - Map */}
           <div className="col p-0 h-100 d-flex align-items-center justify-content-center bg-dark">
-            <Map />
+            <Map destination={destination} />
           </div>
         </div>
 
