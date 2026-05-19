@@ -1,4 +1,4 @@
-from agents import Agent, function_tool
+from langchain_core.tools import tool
 
 
 HOME = "Via Trana, 19, 10138 Torino TO"
@@ -76,7 +76,7 @@ You have access to:
 """
 
 
-@function_tool
+@tool
 async def userTravelHabits():
     """Returns user's habitual routes and times. In the format of a dictionary.
     The dictionary has the following format:
@@ -109,17 +109,17 @@ async def userTravelHabits():
         "Sunday": [homeToParkRoute, parkToHomeRoute],
     }
 
-@function_tool
+@tool
 async def dateTimeNow():
     """Returns the current date and time."""
     return "Tuesday, 5:42 PM"
 
-@function_tool
+@tool
 async def currentUserLocation():
     """Returns the current user location."""
     return WORK
 
-@function_tool
+@tool
 async def todoList():
     """Returns user's current to-do list."""
     print("calling todoList")
@@ -127,9 +127,4 @@ async def todoList():
         {"task": "grocery shopping"},
     ]
 
-default_agent = Agent(
-    name="Default Agent",
-    instructions=SYSTEM_PROMPT,
-    tools=[userTravelHabits, dateTimeNow, currentUserLocation, todoList],
-    model="gpt-4.1-mini",
-)
+tools = [userTravelHabits, dateTimeNow, currentUserLocation, todoList]

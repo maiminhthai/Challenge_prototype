@@ -1,4 +1,4 @@
-from agents import Agent, function_tool
+from langchain_core.tools import tool
 from my_agents.scraper import scrape_google_maps, scrape_nearby 
 
 HOME = "Via Trana, 19, 10138 Torino TO"
@@ -146,7 +146,7 @@ Answer with the station name, address, distance and the reason why this station 
 When the user selects a charging station, use navigate() to send the address of the charging station to the client side for navigation.
 """
 
-@function_tool
+@tool
 async def todoList():
     """Returns user's current to-do list."""
     print("calling todoList")
@@ -154,7 +154,7 @@ async def todoList():
         {"task": "grocery shopping"},
     ]
 
-@function_tool
+@tool
 async def nearby(address: str, query: str):
     """
     address: str: the address to find locations close to.
@@ -177,7 +177,7 @@ async def nearby(address: str, query: str):
     print("calling scrape_nearby")
     return await scrape_nearby(address, query)
 
-@function_tool
+@tool
 async def findStation(query: str, currentLocation: str):
     """
     query: str: the query to find locations according to.
@@ -201,7 +201,7 @@ async def findStation(query: str, currentLocation: str):
     print("calling scrape_google_maps")
     return await scrape_google_maps(query, currentLocation)
 
-@function_tool
+@tool
 async def userTravelHabits():
     """Returns user's habitual routes and times. In the format of a dictionary.
     The dictionary has the following format:
@@ -235,13 +235,13 @@ async def userTravelHabits():
         "Sunday": [homeToParkRoute, parkToHomeRoute],
     }
 
-@function_tool
+@tool
 async def dateTimeNow():
     """Returns the current date and time."""
     print("calling dateTimeNow")
     return "Tuesday, 5:42 PM"
 
-@function_tool
+@tool
 async def currentUserLocation():
     """Returns the current user location."""
     print("calling currentUserLocation")
@@ -249,16 +249,10 @@ async def currentUserLocation():
 
 from extensions import socketio  # <--- Import from the new extensions file
 
-@function_tool
+@tool
 async def navigate(destination: str):
     """Send the address of the destination to the client side for navigation."""
     print("Emitting message to client...")
     socketio.emit('destination', destination, namespace='/')
 
-charging_station_agent = Agent(
-    name="Charging Station Expert",
-    handoff_description="Specialist agent for finding charging stations",
-    instructions=CHARGING_STATION_AGENT_PROMPT,
-    tools=[findStation, nearby, todoList, userTravelHabits, dateTimeNow, currentUserLocation, navigate],
-    model="gpt-5",
-)
+tools = [findStation, nearby, todoList, userTravelHabits, dateTimeNow, currentUserLocation, navigate]

@@ -1,4 +1,4 @@
-from agents import Agent, function_tool
+from langchain_core.tools import tool
 
 SYSTEM_PROMPT = """
 You are an EV Driving Coach that helps users save energy while driving. You have access to:
@@ -17,7 +17,7 @@ Keep the answer short and concise.
 Keep the tone friendly and motivational.
 """
 
-@function_tool
+@tool
 async def efficientDriving():
     """Returns best practices for energy-efficient driving."""
     return {
@@ -25,17 +25,11 @@ async def efficientDriving():
         "speed": "between 40km/h and 60km/h",
     }
 
-@function_tool
+@tool
 async def rangeIncrease(current_speed: int, current_ac_temperature: int) :
     """Returns the range increase If the user were to follow the best practices based on the current speed and AC temperature."""
     return {
         "range increase": "between 1km and 2km",
     }
 
-driving_coach_agent = Agent(
-    name="Driving Coach",
-    handoff_description="Specialist agent for driving coaching",
-    instructions=SYSTEM_PROMPT,
-    tools=[efficientDriving, rangeIncrease],
-    model="gpt-4.1-mini",
-)
+tools = [efficientDriving, rangeIncrease]

@@ -1,4 +1,4 @@
-from agents import Agent, function_tool
+from langchain_core.tools import tool
 
 CRITIC_AGENT_PROMPT = """
 You are a user who owns an EV car and is looking for a charging station.
@@ -15,7 +15,7 @@ You have access to:
 . todoList() to find the location of the task that you need to do.
 """
 
-@function_tool
+@tool
 def userTravelHabit():
     """Returns user's habitual routes and times."""
     return {
@@ -28,25 +28,21 @@ def userTravelHabit():
         "Sunday": ["Home to Park (10 AM)", "Park to Home (3 PM)"],
     }
 
-@function_tool
+@tool
 def dateTimeNow():
     """Returns the current date and time."""
     return "Tuesday, 5:42 PM"
 
-@function_tool
+@tool
 def currentUserLocation():
     """Returns the current location."""
     return "Work"
 
-@function_tool
+@tool
 def todoList():
     """Returns user's current to-do list with time and destinations."""
     return [
         {"task": "grocery shopping", "location": "Grocery Store"},
     ]
 
-critic_agent = Agent(
-    name="Critic",
-    instructions=CRITIC_AGENT_PROMPT,
-    model="gpt-4.1",
-)
+tools = [userTravelHabit, dateTimeNow, currentUserLocation, todoList]

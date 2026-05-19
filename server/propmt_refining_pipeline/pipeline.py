@@ -1,25 +1,45 @@
 import asyncio
 import os
-from agents import Runner, OpenAIConversationsSession
 import sys
-
-# Ensure the server directory is in python path
-current_dir = os.path.dirname(os.path.abspath(__file__))
-server_dir = os.path.dirname(current_dir)
-if server_dir not in sys.path:
-    sys.path.append(server_dir)
-
-from charging_station_agent import charging_station_agent
-from critic_agent import critic_agent
-
-# Get current directory
-
 from dotenv import load_dotenv
-# --- Load Environment Variables ---
+from langchain_nvidia_ai_endpoints import ChatNVIDIA
+from langgraph.prebuilt import create_react_agent
+from langgraph.checkpoint.memory import MemorySaver
+
+# Ensure the current directory is in python path to load local modules
+current_dir = os.path.dirname(os.path.abspath(__file__))
+if current_dir not in sys.path:
+    sys.path.append(current_dir)
+
+from charging_station_agent import CHARGING_STATION_AGENT_PROMPT, tools as charging_tools
+from critic_agent import CRITIC_AGENT_PROMPT, tools as critic_tools
+
+# Load Environment Variables
 load_dotenv()
 
+# Initialize NIM LLM
+llm = ChatNVIDIA(model="meta/llama-3.1-70b-instruct")
+
+# Initialize Agents with memory checkpoints
+memory_charging = MemorySaver()
+memory_critic = MemorySaver()
+
+charging_agent = create_react_agent(
+    llm, 
+    tools=charging_tools, 
+    prompt=CHARGING_STATION_AGENT_PROMPT, 
+    checkpointer=memory_charging
+)
+critic_agent = create_react_agent(
+    llm, 
+    tools=critic_tools, 
+    prompt=CRITIC_AGENT_PROMPT, 
+    checkpointer=memory_critic
+)
+
 async def run_pipeline():
-    session = OpenAIConversationsSession()
+    charging_config = {"configurable": {"thread_id": "charging_session"}}
+    critic_config = {"configurable": {"thread_id": "critic_session"}}
     
     # Initial trigger
     initial_message = "SYSTEM: Your battery is low."
@@ -27,8 +47,11 @@ async def run_pipeline():
     print(f"User (System): {initial_message}")
     
     # Get initial response from Charging Station Agent
-    agent_response = await Runner.run(charging_station_agent, initial_message, session=session)
-    agent_text = agent_response.final_output
+    response = await charging_agent.ainvoke(
+        {"messages": [{"role": "user", "content": initial_message}]},
+        config=charging_config
+    )
+    agent_text = response["messages"][-1].content
     print(f"Agent: {agent_text}")
     
     conversation_log = [
@@ -40,8 +63,12 @@ async def run_pipeline():
         print(f"\n--- Iteration {i} ---")
         
         # Critic reacts to Agent's last message
-        critic_response = await Runner.run(critic_agent, f"The assistant said: '{agent_text}'. Respond to it acting as the user.", session=session)
-        critic_text = critic_response.final_output
+        critic_msg = f"The assistant said: '{agent_text}'. Respond to it acting as the user."
+        critic_response = await critic_agent.ainvoke(
+            {"messages": [{"role": "user", "content": critic_msg}]},
+            config=critic_config
+        )
+        critic_text = critic_response["messages"][-1].content
         print(f"Critic: {critic_text}")
         conversation_log.append(f"Critic: {critic_text}")
         
@@ -50,8 +77,11 @@ async def run_pipeline():
             break
             
         # Agent responds to Critic
-        agent_response = await Runner.run(charging_station_agent, critic_text, session=session)
-        agent_text = agent_response.final_output
+        response = await charging_agent.ainvoke(
+            {"messages": [{"role": "user", "content": critic_text}]},
+            config=charging_config
+        )
+        agent_text = response["messages"][-1].content
         print(f"Agent: {agent_text}")
         conversation_log.append(f"Agent: {agent_text}")
 

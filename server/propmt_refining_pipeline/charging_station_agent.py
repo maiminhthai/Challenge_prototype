@@ -1,5 +1,4 @@
-from agents import Agent, function_tool, AgentHooks, RunContextWrapper, WebSearchTool
-
+from langchain_core.tools import tool
 
 CHARGING_STATION_AGENT_PROMPT = """
 You are a navigation assistant that helps users find EV charging stations based on their needs. Be nice and friendly.
@@ -26,14 +25,14 @@ Then findout if there is a station that allow user to charge while doing this ta
 Suggest a few options. Answer with the station name, address, distance and the reason why this station is chosen.
 """
 
-@function_tool
+@tool
 def todoList():
     """Returns user's current to-do list with time and destinations."""
     return [
         {"task": "grocery shopping", "location": "Grocery Store"},
     ]
 
-@function_tool
+@tool
 def stationCloseTo(location: str):
     """Finds a charging station close to the given location."""
     stations = {
@@ -49,7 +48,7 @@ def stationCloseTo(location: str):
     }
     return stations.get(location, {"name": "Unknown", "address": "N/A", "distance": "N/A", "charging time": "N/A"})
 
-@function_tool
+@tool
 def fastestStation(currentLocation: str, destination: str):
     """The least deviate charging station with respect to direction to a destination."""
     stations = {
@@ -64,7 +63,7 @@ def fastestStation(currentLocation: str, destination: str):
     }
     return stations.get(currentLocation, {"name": "Unknown", "address": "N/A", "distance": "N/A"}).get(destination, {"name": "Unknown", "address": "N/A", "distance": "N/A"})
 
-@function_tool
+@tool
 def userTravelHabit():
     """Returns user's habitual routes and times."""
     return {
@@ -77,27 +76,19 @@ def userTravelHabit():
         "Sunday": ["Home to Park (10 AM)", "Park to Home (3 PM)"],
     }
 
-@function_tool
+@tool
 def dateTimeNow():
     """Returns the current date and time."""
     return "Tuesday, 5:42 PM"
 
-@function_tool
+@tool
 def currentUserLocation():
     """Returns the current user location."""
     return "Work"
 
-#---Uncomment to enable tool usage logging---
-# class MyHooks(AgentHooks):
-#     async def on_tool_start(self, context: RunContextWrapper, agent: Agent, tool) -> None:
-#         print(f"{agent.name} - {tool}")
-# myHooks = MyHooks()
+@tool
+def web_search(query: str) -> str:
+    """Search the web for information about charging stations."""
+    return f"Search results for: {query}. (Mocked search results: No relevant charging stations found via web search. Please use local database tools instead.)"
 
-charging_station_agent = Agent(
-    name="Charging Station Expert",
-    handoff_description="Specialist agent for finding charging stations",
-    instructions=CHARGING_STATION_AGENT_PROMPT,
-    tools=[stationCloseTo, fastestStation, todoList, userTravelHabit, dateTimeNow, currentUserLocation, WebSearchTool()],
-    model="gpt-4.1-mini",
-    #hooks=myHooks,
-)
+tools = [stationCloseTo, fastestStation, todoList, userTravelHabit, dateTimeNow, currentUserLocation, web_search]
