@@ -54,26 +54,6 @@ class Route(BaseModel):
         description="The next agent to route to based on the user's request."
     )
 
-async def orchestrator(state: MessagesState):
-    prompt = """You are an orchestrator agent that hands off the conversation to the appropriate specialist agent.
-- driving_coach_agent for driving efficiency advice.
-- charging_station_agent for finding EV charging stations.
-- default_agent if the question is not related to driving efficiency or finding EV charging stations.
-Determine which agent should handle the user's latest request.
-"""
-    messages = [{"role": "system", "content": prompt}] + state["messages"]
-    router = orchestrator_llm.with_structured_output(Route)
-    response = await router.ainvoke(messages)
-    return {"next_agent": response.next_agent}
-
-# Edge condition
-def route_to_agent(state: MessagesState):
-    # State needs to carry the route or we can just route by inspecting the last output.
-    # Actually, the orchestrator returns the next_agent in the state if we add it to the state.
-    # But MessagesState doesn't have `next_agent`. 
-    pass
-
-# A better way is to make the orchestrator return a Command or use conditional edge directly.
 def orchestrator_router(state: MessagesState):
     prompt = """You are an orchestrator agent that hands off the conversation to the appropriate specialist agent.
 - driving_coach_agent for driving efficiency advice.
