@@ -5,10 +5,8 @@ import os
 import io
 from dotenv import load_dotenv
 
-# --- Load Environment Variables ---
 load_dotenv()
 
-# Use standard OpenAI client for Audio (TTS & STT) as NVIDIA NIM doesn't host cloud audio endpoints
 client = OpenAI(
     api_key=os.getenv("OPENAI_API_KEY")
 )

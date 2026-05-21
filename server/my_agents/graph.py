@@ -6,7 +6,6 @@ from langgraph.prebuilt import create_react_agent
 from pydantic import BaseModel, Field
 from dotenv import load_dotenv
 
-# Load env variables before initializing LLM
 load_dotenv()
 
 # Import agents
@@ -14,10 +13,8 @@ from my_agents.driving_coach_agent import SYSTEM_PROMPT as DRIVING_COACH_PROMPT,
 from my_agents.charging_station_agent import CHARGING_STATION_AGENT_PROMPT, tools as charging_station_tools
 from my_agents.default_agent import SYSTEM_PROMPT as DEFAULT_PROMPT, tools as default_tools
 
-# Define the model for tools/react
-llm = ChatNVIDIA(model="meta/llama-3.1-70b-instruct")
+llm = ChatNVIDIA(model="openai/gpt-oss-120b")
 
-# Create individual nodes using create_react_agent
 driving_coach_node = create_react_agent(
     llm,
     tools=driving_coach_tools,
