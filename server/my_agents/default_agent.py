@@ -1,5 +1,4 @@
 from langchain_core.tools import tool
-import socketio
 
 
 HOME = "Via Trana, 19, 10138 Torino TO"
@@ -128,10 +127,4 @@ async def todoList():
         {"task": "grocery shopping"},
     ]
 
-@tool
-async def navigate(destination: str):
-    """Send the address of the destination to the client side for navigation."""
-    print("Emitting message to client...")
-    socketio.emit('destination', destination, namespace='/')
-
-tools = [userTravelHabits, dateTimeNow, currentUserLocation, todoList, navigate]
+tools = [userTravelHabits, dateTimeNow, currentUserLocation, todoList]

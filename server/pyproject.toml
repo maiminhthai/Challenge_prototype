@@ -5,6 +5,9 @@ description = "Add your description here"
 readme = "README.md"
 requires-python = ">=3.12"
 dependencies = [
+    "flask>=3.1.2",
+    "flask-cors>=6.0.1",
+    "flask-socketio>=5.5.1",
     "python-dotenv>=1.2.1",
     "numpy>=1.26.0",
     "soundfile>=0.12.1",
@@ -16,7 +19,4 @@ dependencies = [
     "aiosqlite>=0.20.0",
     "langchain-core>=0.2.10",
     "openai>=1.0.0",
-    "fastapi>=0.136.3",
-    "uvicorn[standard]>=0.48.0",
-    "python-socketio>=5.16.2",
 ]

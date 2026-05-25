@@ -1,3 +1,3 @@
-import socketio
+from flask_socketio import SocketIO
 
-sio = socketio.AsyncServer(async_mode='asgi', cors_allowed_origins="http://localhost:5173")
+socketio = SocketIO()
