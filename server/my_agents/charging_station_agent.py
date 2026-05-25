@@ -1,5 +1,7 @@
 from langchain_core.tools import tool
 from my_agents.scraper import scrape_google_maps, scrape_nearby 
+from extensions import socketio
+
 
 HOME = "Via Trana, 19, 10138 Torino TO"
 WORK = "Corso Duca degli Abruzzi, 24, 10129 Torino TO"
@@ -246,8 +248,6 @@ async def currentUserLocation():
     """Returns the current user location."""
     print("calling currentUserLocation")
     return WORK
-
-from extensions import socketio  # <--- Import from the new extensions file
 
 @tool
 async def navigate(destination: str):
