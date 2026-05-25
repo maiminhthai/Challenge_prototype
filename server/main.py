@@ -1,35 +1,40 @@
-from flask_socketio import emit
-from extensions import socketio
-from flask import Flask
-from flask_cors import CORS
-import asyncio
+from fastapi import FastAPI
+from fastapi.middleware.cors import CORSMiddleware
+import socketio
+import uvicorn
+from extensions import sio
 from my_agents.workflow import get_voice_response, get_message_response
 
+app = FastAPI()
 
-app = Flask(__name__)
-app.config['SECRET_KEY'] = 'your_secret_key'
-cors = CORS(app, resources={r"/*": {"origins": "http://localhost:5173"}})
-socketio.init_app(app, cors_allowed_origins="http://localhost:5173")
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["http://localhost:5173"],
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
 
+socket_app = socketio.ASGIApp(sio, other_asgi_app=app)
 
 # --- SocketIO Events ---
-@socketio.on('connect')
-def handle_connect():
+@sio.event
+async def connect(sid, environ, auth):
     """Handles new client connections."""
-    print('Client connected')
+    print(f'Client {sid} connected')
     try:
-        emit('message', {'user': 'Bot', 'text': "Client connected"}, broadcast=False)
+        await sio.emit('message', {'user': 'Bot', 'text': "Client connected"}, to=sid)
     except Exception as e:
         print("Exception: ", e)
-        emit('message', {'user': 'Bot', 'text': "Sorry, I'm having trouble responding right now."}, broadcast=False)
+        await sio.emit('message', {'user': 'Bot', 'text': "Sorry, I'm having trouble responding right now."}, to=sid)
 
-@socketio.on('disconnect')
-def handle_disconnect():
+@sio.event
+async def disconnect(sid):
     """Handles client disconnections."""
-    print('Client disconnected')
+    print(f'Client {sid} disconnected')
 
-@socketio.on('send_message')
-def handle_user_message(data):
+@sio.on('send_message')
+async def handle_user_message(sid, data):
     """
     Handles a message sent from the React client.
     'data' is expected to be {'text': 'user message content'}
@@ -37,40 +42,32 @@ def handle_user_message(data):
     user_message = data.get('text', '')
     print(f"Received message: {user_message}")
 
-    # 2. Get the bot's response4
     try:
-        loop = asyncio.new_event_loop()
-        bot_response, audio = loop.run_until_complete(
-            get_message_response(user_message)
-        )
+        bot_response, audio = await get_message_response(user_message)
         print(f"Bot response: {bot_response}")
-        # 3. Send the bot's response back to the user
-        emit('audio', audio, broadcast=False)
-        emit('message', {'user': 'Bot', 'text': bot_response}, broadcast=False)
+        
+        await sio.emit('audio', audio, to=sid)
+        await sio.emit('message', {'user': 'Bot', 'text': bot_response}, to=sid)
     except Exception as e:
         print("Exception: ", e)
-        emit('message', {'user': 'Bot', 'text': "Sorry, I'm having trouble responding right now."}, broadcast=False)
+        await sio.emit('message', {'user': 'Bot', 'text': "Sorry, I'm having trouble responding right now."}, to=sid)
 
 
-@socketio.on('send_audio')
-def handle_audio(data):
+@sio.on('send_audio')
+async def handle_audio(sid, data):
     """
     Handles audio data sent from the client.
-    Echoes the audio back to the client.
     """
     print("Received audio data")
     try:
-        loop = asyncio.new_event_loop()
-        bot_response, audio = loop.run_until_complete(
-            get_voice_response(data)
-        )
-        emit('message', {'user': 'Bot', 'text': bot_response}, broadcast=False)
-        emit('audio', audio, broadcast=False)
+        bot_response, audio = await get_voice_response(data)
+        await sio.emit('message', {'user': 'Bot', 'text': bot_response}, to=sid)
+        await sio.emit('audio', audio, to=sid)
     except Exception as e:
         print(f"Error processing audio: {e}")
-        emit('message', {'user': 'System', 'text': f"Error processing audio: {e}"}, broadcast=False)
+        await sio.emit('message', {'user': 'System', 'text': f"Error processing audio: {e}"}, to=sid)
 
 
 #--- Run Server ---
 if __name__ == '__main__':
-    socketio.run(app, debug=True, allow_unsafe_werkzeug=True)
+    uvicorn.run("main:socket_app", host="127.0.0.1", port=5000, reload=True)
