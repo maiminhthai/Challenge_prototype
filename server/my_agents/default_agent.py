@@ -1,4 +1,5 @@
 from langchain_core.tools import tool
+from my_agents.memory_manager import retrieve_user_memory
 
 
 HOME = "Via Trana, 19, 10138 Torino TO"
@@ -72,6 +73,7 @@ You have access to:
 . userTravelHabits() to find the user's weekly travel habits.
 . dateTimeNow() to find the current date and time.
 . currentUserLocation() to find the current user location.
+. getPersonalizedUserMemory(query) to find personalized user preferences, habits, or routines.
 
 """
 
@@ -126,4 +128,9 @@ async def todoList():
         {"task": "grocery shopping"},
     ]
 
-tools = [userTravelHabits, dateTimeNow, currentUserLocation, todoList]
+@tool
+async def getPersonalizedUserMemory(query: str):
+    """Retrieves user's preferences, habits, and routines from memory based on the query."""
+    return retrieve_user_memory(query)
+
+tools = [userTravelHabits, dateTimeNow, currentUserLocation, todoList, getPersonalizedUserMemory]

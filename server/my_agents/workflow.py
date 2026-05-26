@@ -11,7 +11,7 @@ client = OpenAI(
     api_key=os.getenv("OPENAI_API_KEY")
 )
 
-async def get_voice_response(data):
+async def get_voice_response(data, session_id):
     # Speech to Text
     audio_file = io.BytesIO(data)
     audio_file.name = "audio.wav"
@@ -24,7 +24,8 @@ async def get_voice_response(data):
     async with AsyncSqliteSaver.from_conn_string("db/conversations.db") as memory:
         app = builder.compile(checkpointer=memory)
         messages = [{"role": "user", "content": transcription}]
-        result = await app.ainvoke({"messages": messages})
+        config = {"configurable": {"thread_id": session_id}}
+        result = await app.ainvoke({"messages": messages}, config)
     
     text = result["messages"][-1].content
     # Text to Speech
@@ -37,12 +38,13 @@ async def get_voice_response(data):
     audio = response.content
     return text, audio
 
-async def get_message_response(message):
+async def get_message_response(message, session_id):
     # Get Response
     async with AsyncSqliteSaver.from_conn_string("db/conversations.db") as memory:
         app = builder.compile(checkpointer=memory)
         messages = [{"role": "user", "content": message}]
-        result = await app.ainvoke({"messages": messages})
+        config = {"configurable": {"thread_id": session_id}}
+        result = await app.ainvoke({"messages": messages}, config)
     
     text = result["messages"][-1].content
     # Text to Speech

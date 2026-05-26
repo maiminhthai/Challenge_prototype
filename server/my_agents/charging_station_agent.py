@@ -1,6 +1,7 @@
 from langchain_core.tools import tool
 from my_agents.scraper import scrape_google_maps, scrape_nearby 
 from extensions import socketio
+from server.my_agents.memory_manager import retrieve_user_memory
 
 
 HOME = "Via Trana, 19, 10138 Torino TO"
@@ -257,4 +258,9 @@ async def navigate(destination: str):
     print("Emitting message to client...")
     socketio.emit('destination', destination, namespace='/')
 
-tools = [findStation, nearby, todoList, userTravelHabits, dateTimeNow, currentUserLocation, navigate]
+@tool
+async def getPersonalizedUserMemory(query: str):
+    """Retrieves user's preferences, habits, and routines from memory based on the query."""
+    return retrieve_user_memory(query)
+
+tools = [findStation, nearby, todoList, userTravelHabits, dateTimeNow, currentUserLocation, navigate, getPersonalizedUserMemory]
