@@ -1,7 +1,7 @@
 from langchain_core.tools import tool
 from my_agents.scraper import scrape_google_maps, scrape_nearby 
 from extensions import socketio
-from server.my_agents.memory_manager import retrieve_user_memory
+from my_agents.memory_manager import retrieve_user_memory
 
 
 HOME = "Via Trana, 19, 10138 Torino TO"

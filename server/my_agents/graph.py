@@ -2,6 +2,7 @@ from typing import Literal
 from langchain_core.messages import SystemMessage
 from langgraph.graph import StateGraph, START, END, MessagesState
 from langchain_nvidia_ai_endpoints import ChatNVIDIA
+from langchain_openai import ChatOpenAI
 from langchain.agents import create_agent
 from pydantic import BaseModel, Field
 from dotenv import load_dotenv
@@ -13,7 +14,12 @@ from my_agents.driving_coach_agent import SYSTEM_PROMPT as DRIVING_COACH_PROMPT,
 from my_agents.charging_station_agent import CHARGING_STATION_AGENT_PROMPT, tools as charging_station_tools
 from my_agents.default_agent import SYSTEM_PROMPT as DEFAULT_PROMPT, tools as default_tools
 
+
 llm = ChatNVIDIA(model="openai/gpt-oss-120b")
+orchestrator_llm = ChatNVIDIA(model="meta/llama-3.1-8b-instruct")
+
+#llm = ChatOpenAI(model="gpt-4o-mini")
+#orchestrator_llm = ChatOpenAI(model="gpt-4o-mini")
 
 driving_coach_node = create_agent(
     llm,
@@ -47,8 +53,6 @@ async def run_default(state: MessagesState):
     return {"messages": result["messages"][-1]}
 
 # Orchestrator Model
-orchestrator_llm = ChatNVIDIA(model="meta/llama-3.1-8b-instruct")
-
 class Route(BaseModel):
     next_agent: Literal["driving_coach_agent", "charging_station_agent", "default_agent"] = Field(
         description="The next agent to route to based on the user's request."

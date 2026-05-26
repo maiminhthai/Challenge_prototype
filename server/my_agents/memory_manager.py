@@ -1,5 +1,3 @@
-import os
-import json
 import chromadb
 from dotenv import load_dotenv
 from langchain_chroma import Chroma
