@@ -122,7 +122,6 @@ async def currentUserLocation():
 @tool
 async def todoList():
     """Returns user's current to-do list."""
-    print("calling todoList")
     return [
         {"task": "grocery shopping"},
     ]

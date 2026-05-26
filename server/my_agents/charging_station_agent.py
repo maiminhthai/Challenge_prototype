@@ -82,6 +82,8 @@ You have access to the following tools:
    Finds points of interest (query) close to a specific address.
 6. findStation(query: str, currentLocation: str) -> list
    Finds facilities matching the query (use "charging station") near the current location.
+7. navigate(destination: str)
+   Send the address of the destination to the client side for navigation.
 
 First, warn the user that ther car's battery is low.
 
@@ -145,7 +147,7 @@ Give the final answer only.
 Keep the answer short and concise.
 Answer with the station name, address, distance and the reason why this station is chosen.
 
-When the user selects a charging station, use navigate() to send the address of the charging station to the client side for navigation.
+When the user selects a charging station, use navigate(destination: str) to send the address of the charging station to the client side for navigation.
 """
 
 @tool

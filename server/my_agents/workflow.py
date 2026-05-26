@@ -21,11 +21,10 @@ async def get_voice_response(data):
         response_format="text"
     )
     # Get Response
-    config = {"configurable": {"thread_id": "user_123"}}
     async with AsyncSqliteSaver.from_conn_string("db/conversations.db") as memory:
         app = builder.compile(checkpointer=memory)
         messages = [{"role": "user", "content": transcription}]
-        result = await app.ainvoke({"messages": messages}, config=config)
+        result = await app.ainvoke({"messages": messages})
     
     text = result["messages"][-1].content
     # Text to Speech
@@ -40,11 +39,10 @@ async def get_voice_response(data):
 
 async def get_message_response(message):
     # Get Response
-    config = {"configurable": {"thread_id": "user_123"}}
     async with AsyncSqliteSaver.from_conn_string("db/conversations.db") as memory:
         app = builder.compile(checkpointer=memory)
         messages = [{"role": "user", "content": message}]
-        result = await app.ainvoke({"messages": messages}, config=config)
+        result = await app.ainvoke({"messages": messages})
     
     text = result["messages"][-1].content
     # Text to Speech

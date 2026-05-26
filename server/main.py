@@ -37,7 +37,6 @@ def handle_user_message(data):
     user_message = data.get('text', '')
     print(f"Received message: {user_message}")
 
-    # 2. Get the bot's response4
     try:
         loop = asyncio.new_event_loop()
         bot_response, audio = loop.run_until_complete(
