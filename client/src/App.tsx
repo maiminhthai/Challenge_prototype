@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef, useCallback } from 'react';
 import io from 'socket.io-client';
 import './App.css';
 import { WavRecorder } from './WavRecorder';
@@ -60,7 +60,6 @@ const App: React.FC = () => {
     }
   };
 
-  // Use a ref to hold the WavRecorder instance
   const wavRecorderRef = useRef<WavRecorder | null>(null);
 
   const startRecording = async () => {
@@ -79,52 +78,50 @@ const App: React.FC = () => {
       const audioBlob = await wavRecorderRef.current.stop();
       setIsRecording(false);
 
-      // Emit the blob directly; socket.io client handles it
       socket.emit('send_audio', audioBlob);
       console.log("Sent audio to server");
 
-      // Reset ref
       wavRecorderRef.current = null;
     }
   };
 
-  const lowBatteryMessage = () => {
-    const lowBatteryMessage = 'User battery is running low, help him find a charging station';
-    socket.emit('send_message', { text: 'SYSTEM: ' + lowBatteryMessage });
+  const lowBatteryMessage = useCallback(() => {
+    const msg = 'User battery is running low, help him find a charging station';
+    socket.emit('send_message', { text: 'SYSTEM: ' + msg });
     setInput('');
     setIsScenariosOpen(false);
-  };
+  }, []);
 
-  const heavyTrafficMessage = () => {
-    const heavyTrafficMessage = 'Heavy traffic incoming, help him drive efficiently';
-    socket.emit('send_message', { text: 'SYSTEM: ' + heavyTrafficMessage });
+  const heavyTrafficMessage = useCallback(() => {
+    const msg = 'Heavy traffic incoming, help him drive efficiently';
+    socket.emit('send_message', { text: 'SYSTEM: ' + msg });
     setInput('');
     setIsScenariosOpen(false);
-  };
+  }, []);
 
-  const lowTrafficMessage = () => {
-    const lowTrafficMessage = 'Low traffic incoming, help him drive efficiently';
-    socket.emit('send_message', { text: 'SYSTEM: ' + lowTrafficMessage });
+  const lowTrafficMessage = useCallback(() => {
+    const msg = 'Low traffic incoming, help him drive efficiently';
+    socket.emit('send_message', { text: 'SYSTEM: ' + msg });
     setInput('');
     setIsScenariosOpen(false);
-  };
+  }, []);
 
   const lastBatteryWarningTime = useRef<number>(0);
+  const lastDrivingWarningTime = useRef<number>(0);
 
-  // Monitor battery level and trigger warning at 20% or less (throttled to 5s)
   useEffect(() => {
     const now = Date.now();
     if (batteryLevel <= 20 && now - lastBatteryWarningTime.current > 5000) {
       lowBatteryMessage();
       lastBatteryWarningTime.current = now;
     }
-  }, [batteryLevel]);
+  }, [batteryLevel, lowBatteryMessage]);
 
   useEffect(() => {
     const now = Date.now();
-    if (temperature >= 20 && speed >= 70 && now - lastBatteryWarningTime.current > 5000) {
+    if (temperature >= 20 && speed >= 70 && now - lastDrivingWarningTime.current > 5000) {
       socket.emit('send_message', { text: 'SYSTEM: driving efficiency: temperature = ' + temperature + '°C and speed = ' + speed + 'km/h' });
-      lastBatteryWarningTime.current = now;
+      lastDrivingWarningTime.current = now;
     }
   }, [temperature, speed]);
 

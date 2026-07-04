@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect, useRef, useCallback } from 'react';
 
 interface TopBarProps {
     isScenariosOpen: boolean;
@@ -30,9 +30,34 @@ const TopBar: React.FC<TopBarProps> = ({
     const [isBatteryOpen, setIsBatteryOpen] = useState(false);
     const [isSpeedOpen, setIsSpeedOpen] = useState(false);
     const [isTempOpen, setIsTempOpen] = useState(false);
+    const topBarRef = useRef<HTMLDivElement>(null);
+
+    const closeAll = useCallback(() => {
+        setIsScenariosOpen(false);
+        setIsBatteryOpen(false);
+        setIsSpeedOpen(false);
+        setIsTempOpen(false);
+    }, [setIsScenariosOpen]);
+
+    useEffect(() => {
+        const handleClickOutside = (e: MouseEvent) => {
+            if (topBarRef.current && !topBarRef.current.contains(e.target as Node)) {
+                closeAll();
+            }
+        };
+        document.addEventListener('mousedown', handleClickOutside);
+        return () => document.removeEventListener('mousedown', handleClickOutside);
+    }, [closeAll]);
+
+    const toggleDropdown = (name: 'scenarios' | 'battery' | 'speed' | 'temp') => {
+        setIsScenariosOpen(name === 'scenarios' ? !isScenariosOpen : false);
+        setIsBatteryOpen(name === 'battery' ? !isBatteryOpen : false);
+        setIsSpeedOpen(name === 'speed' ? !isSpeedOpen : false);
+        setIsTempOpen(name === 'temp' ? !isTempOpen : false);
+    };
 
     return (
-        <div className="row p-3 border-bottom border-secondary m-0">
+        <div ref={topBarRef} className="row p-3 border-bottom border-secondary m-0">
             <div className="col d-flex justify-content-start gap-3">
                 {/* Scenarios Dropdown */}
                 <div className="dropdown">
@@ -40,7 +65,7 @@ const TopBar: React.FC<TopBarProps> = ({
                         className="btn btn-secondary dropdown-toggle"
                         type="button"
                         id="scenariosDropdown"
-                        onClick={() => setIsScenariosOpen(!isScenariosOpen)}
+                        onClick={() => toggleDropdown('scenarios')}
                         aria-expanded={isScenariosOpen}
                     >
                         Scenarios
@@ -58,7 +83,7 @@ const TopBar: React.FC<TopBarProps> = ({
                         className="btn btn-secondary dropdown-toggle"
                         type="button"
                         id="batteryDropdown"
-                        onClick={() => setIsBatteryOpen(!isBatteryOpen)}
+                        onClick={() => toggleDropdown('battery')}
                         aria-expanded={isBatteryOpen}
                     >
                         Battery
@@ -83,7 +108,7 @@ const TopBar: React.FC<TopBarProps> = ({
                         className="btn btn-secondary dropdown-toggle"
                         type="button"
                         id="speedDropdown"
-                        onClick={() => setIsSpeedOpen(!isSpeedOpen)}
+                        onClick={() => toggleDropdown('speed')}
                         aria-expanded={isSpeedOpen}
                     >
                         Speed
@@ -108,7 +133,7 @@ const TopBar: React.FC<TopBarProps> = ({
                         className="btn btn-secondary dropdown-toggle"
                         type="button"
                         id="tempDropdown"
-                        onClick={() => setIsTempOpen(!isTempOpen)}
+                        onClick={() => toggleDropdown('temp')}
                         aria-expanded={isTempOpen}
                     >
                         Temp

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useRef } from 'react';
 
 interface ChatMessage {
     user: string;
@@ -28,6 +28,12 @@ const LeftPanel: React.FC<LeftPanelProps> = ({
     speed,
     batteryLevel,
 }) => {
+    const chatEndRef = useRef<HTMLDivElement>(null);
+
+    useEffect(() => {
+        chatEndRef.current?.scrollIntoView({ behavior: 'smooth' });
+    }, [messages]);
+
     const getBatteryStatus = (level: number) => {
         if (level > 60) return { color: 'text-success', icon: 'bi-battery-full' };
         if (level > 20) return { color: 'text-warning', icon: 'bi-battery-half' };
@@ -67,6 +73,7 @@ const LeftPanel: React.FC<LeftPanelProps> = ({
                         <strong>{msg.user}:</strong> {msg.text}
                     </div>
                 ))}
+                <div ref={chatEndRef} />
             </div>
 
             {/* Chat Input */}
