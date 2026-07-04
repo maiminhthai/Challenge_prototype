@@ -3,7 +3,7 @@ from langchain_core.messages import SystemMessage
 from langgraph.graph import StateGraph, START, END, MessagesState
 from langchain_nvidia_ai_endpoints import ChatNVIDIA
 from langchain_openai import ChatOpenAI
-from langgraph.prebuilt import create_react_agent
+from langchain.agents import create_agent
 from pydantic import BaseModel, Field
 from dotenv import load_dotenv
 
@@ -15,41 +15,41 @@ from my_agents.charging_station_agent import CHARGING_STATION_AGENT_PROMPT, tool
 from my_agents.default_agent import SYSTEM_PROMPT as DEFAULT_PROMPT, tools as default_tools
 
 
-llm = ChatNVIDIA(model="openai/gpt-oss-120b")
-orchestrator_llm = ChatNVIDIA(model="meta/llama-3.1-8b-instruct")
+#llm = ChatNVIDIA(model="openai/gpt-oss-120b")
+#orchestrator_llm = ChatNVIDIA(model="meta/llama-3.1-8b-instruct")
 
-#llm = ChatOpenAI(model="gpt-4o-mini")
-#orchestrator_llm = ChatOpenAI(model="gpt-4o-mini")
+llm = ChatOpenAI(model="gpt-4o-mini")
+orchestrator_llm = ChatOpenAI(model="gpt-4o-mini")
 
-driving_coach_node = create_react_agent(
+driving_coach_node = create_agent(
     llm,
     tools=driving_coach_tools,
-    prompt=DRIVING_COACH_PROMPT
+    system_prompt=DRIVING_COACH_PROMPT
 )
 
-charging_station_node = create_react_agent(
+charging_station_node = create_agent(
     llm,
     tools=charging_station_tools,
-    prompt=CHARGING_STATION_AGENT_PROMPT
+    system_prompt=CHARGING_STATION_AGENT_PROMPT
 )
 
-default_node = create_react_agent(
+default_node = create_agent(
     llm,
     tools=default_tools,
-    prompt=DEFAULT_PROMPT
+    system_prompt=DEFAULT_PROMPT
 )
 
-# Wrapper functions for the nodes since create_react_agent returns a compiled graph
-async def run_driving_coach(state: MessagesState):
-    result = await driving_coach_node.ainvoke(state)
+# Wrapper functions for the nodes since create_agent returns a compiled graph
+def run_driving_coach(state: MessagesState):
+    result = driving_coach_node.invoke(state)
     return {"messages": result["messages"][-1]}
 
-async def run_charging_station(state: MessagesState):
-    result = await charging_station_node.ainvoke(state)
+def run_charging_station(state: MessagesState):
+    result = charging_station_node.invoke(state)
     return {"messages": result["messages"][-1]}
 
-async def run_default(state: MessagesState):
-    result = await default_node.ainvoke(state)
+def run_default(state: MessagesState):
+    result = default_node.invoke(state)
     return {"messages": result["messages"][-1]}
 
 # Orchestrator Model
@@ -58,7 +58,7 @@ class Route(BaseModel):
         description="The next agent to route to based on the user's request."
     )
 
-async def orchestrator_router(state: MessagesState):
+def orchestrator_router(state: MessagesState):
     prompt = """You are an orchestrator agent that hands off the conversation to the appropriate specialist agent.
 - driving_coach_agent for driving efficiency advice.
 - charging_station_agent for finding EV charging stations.
@@ -67,7 +67,7 @@ Determine which agent should handle the user's latest request.
 """
     messages = [{"role": "system", "content": prompt}] + state["messages"]
     router = orchestrator_llm.with_structured_output(Route)
-    response = await router.ainvoke(messages)
+    response = router.invoke(messages)
     print("Routing to: ", response.next_agent)
     return response.next_agent
 
