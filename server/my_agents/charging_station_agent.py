@@ -152,7 +152,7 @@ When the user selects a charging station, use navigate(destination: str) to send
 """
 
 @tool
-async def todoList():
+def todoList():
     """Returns user's current to-do list."""
     print("calling todoList")
     return [
@@ -160,7 +160,7 @@ async def todoList():
     ]
 
 @tool
-async def nearby(address: str, query: str):
+def nearby(address: str, query: str):
     """
     address: str: the address to find locations close to.
     query: str: the query to find locations according to.
@@ -180,7 +180,7 @@ async def nearby(address: str, query: str):
     Some field can be an empty string if the information is not available.
     """
     print("calling scrape_nearby")
-    return await scrape_nearby(address, query)
+    return scrape_nearby(address, query)
 
 @tool
 def findStation(query: str, currentLocation: str):
@@ -204,7 +204,7 @@ def findStation(query: str, currentLocation: str):
     Some field can be an empty string if the information is not available.
     """
     print("calling scrape_google_maps")
-    return await scrape_google_maps(query, currentLocation)
+    return scrape_google_maps(query, currentLocation)
 
 @tool
 def userTravelHabits():
