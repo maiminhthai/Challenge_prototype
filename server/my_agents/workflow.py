@@ -1,5 +1,5 @@
 from my_agents.graph import builder
-from langgraph.checkpoint.sqlite.aio import AsyncSqliteSaver
+from langgraph.checkpoint.sqlite import SqliteSaver
 from openai import OpenAI
 import os
 import io
@@ -11,22 +11,22 @@ client = OpenAI(
     api_key=os.getenv("OPENAI_API_KEY")
 )
 
-async def get_voice_response(data, session_id):
+def get_voice_response(data, session_id):
     # Speech to Text
     audio_file = io.BytesIO(data)
     audio_file.name = "audio.wav"
     transcription = client.audio.transcriptions.create(
-        model="whisper-1", 
-        file=audio_file, 
+        model="whisper-1",
+        file=audio_file,
         response_format="text"
     )
     # Get Response
-    async with AsyncSqliteSaver.from_conn_string("db/conversations.db") as memory:
+    with SqliteSaver.from_conn_string("db/conversations.db") as memory:
         app = builder.compile(checkpointer=memory)
         messages = [{"role": "user", "content": transcription}]
         config = {"configurable": {"thread_id": session_id}}
-        result = await app.ainvoke({"messages": messages}, config)
-    
+        result = app.invoke({"messages": messages}, config)
+
     text = result["messages"][-1].content
     # Text to Speech
     response = client.audio.speech.create(
@@ -38,14 +38,14 @@ async def get_voice_response(data, session_id):
     audio = response.content
     return text, audio
 
-async def get_message_response(message, session_id):
+def get_message_response(message, session_id):
     # Get Response
-    async with AsyncSqliteSaver.from_conn_string("db/conversations.db") as memory:
+    with SqliteSaver.from_conn_string("db/conversations.db") as memory:
         app = builder.compile(checkpointer=memory)
         messages = [{"role": "user", "content": message}]
         config = {"configurable": {"thread_id": session_id}}
-        result = await app.ainvoke({"messages": messages}, config)
-    
+        result = app.invoke({"messages": messages}, config)
+
     text = result["messages"][-1].content
     # Text to Speech
     response = client.audio.speech.create(

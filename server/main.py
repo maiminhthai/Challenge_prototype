@@ -2,7 +2,6 @@ from flask_socketio import emit
 from extensions import socketio
 from flask import Flask, request
 from flask_cors import CORS
-import asyncio
 from my_agents.workflow import get_voice_response, get_message_response
 from my_agents.memory_manager import extract_and_store_memory
 
@@ -30,8 +29,7 @@ def handle_disconnect():
     print('Client disconnected')
     session_id = request.sid
     try:
-        loop = asyncio.new_event_loop()
-        loop.run_until_complete(extract_and_store_memory(session_id))
+        extract_and_store_memory(session_id)
         print("Memory extraction completed.")
     except Exception as e:
         print(f"Error extracting memory: {e}")
@@ -47,12 +45,8 @@ def handle_user_message(data):
 
     session_id = request.sid
     try:
-        loop = asyncio.new_event_loop()
-        bot_response, audio = loop.run_until_complete(
-            get_message_response(user_message, session_id)
-        )
+        bot_response, audio = get_message_response(user_message, session_id)
         print(f"Bot response: {bot_response}")
-        # 3. Send the bot's response back to the user
         emit('audio', audio, broadcast=False)
         emit('message', {'user': 'Bot', 'text': bot_response}, broadcast=False)
     except Exception as e:
@@ -69,10 +63,7 @@ def handle_audio(data):
     print("Received audio data")
     session_id = request.sid
     try:
-        loop = asyncio.new_event_loop()
-        bot_response, audio = loop.run_until_complete(
-            get_voice_response(data, session_id)
-        )
+        bot_response, audio = get_voice_response(data, session_id)
         emit('message', {'user': 'Bot', 'text': bot_response}, broadcast=False)
         emit('audio', audio, broadcast=False)
     except Exception as e:
