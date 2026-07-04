@@ -1,6 +1,6 @@
 from langchain_core.tools import tool
 from my_agents.scraper import scrape_google_maps, scrape_nearby 
-from extensions import socketio
+from extensions import socketio, get_current_sid
 from my_agents.memory_manager import retrieve_user_memory
 
 
@@ -256,7 +256,8 @@ async def currentUserLocation():
 async def navigate(destination: str):
     """Send the address of the destination to the client side for navigation."""
     print("Emitting message to client...")
-    socketio.emit('destination', destination, namespace='/')
+    sid = get_current_sid()
+    socketio.emit('destination', destination, to=sid, namespace='/')
     return f"Navigation to {destination} has been initiated."
 
 @tool

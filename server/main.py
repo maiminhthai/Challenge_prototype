@@ -1,22 +1,31 @@
 from flask_socketio import emit
-from extensions import socketio
+from extensions import socketio, set_current_sid
 from flask import Flask, request
 from flask_cors import CORS
 import asyncio
+import os
 from my_agents.workflow import get_voice_response, get_message_response
 from my_agents.memory_manager import extract_and_store_memory
 
+os.makedirs("db", exist_ok=True)
 
 app = Flask(__name__)
-app.config['SECRET_KEY'] = 'your_secret_key'
+app.config['SECRET_KEY'] = os.environ.get('SECRET_KEY', os.urandom(24).hex())
 cors = CORS(app, resources={r"/*": {"origins": "http://localhost:5173"}})
 socketio.init_app(app, cors_allowed_origins="http://localhost:5173")
+
+
+def run_async(coro):
+    loop = asyncio.new_event_loop()
+    try:
+        return loop.run_until_complete(coro)
+    finally:
+        loop.close()
 
 
 # --- SocketIO Events ---
 @socketio.on('connect')
 def handle_connect():
-    """Handles new client connections."""
     print('Client connected')
     try:
         emit('message', {'user': 'Bot', 'text': "Client connected"}, broadcast=False)
@@ -26,33 +35,23 @@ def handle_connect():
 
 @socketio.on('disconnect')
 def handle_disconnect():
-    """Handles client disconnections."""
     print('Client disconnected')
     session_id = request.sid
-    loop = asyncio.new_event_loop()
-    asyncio.set_event_loop(loop)
     try:
-        loop.run_until_complete(extract_and_store_memory(session_id))
+        run_async(extract_and_store_memory(session_id))
         print("Memory extraction completed.")
     except Exception as e:
         print(f"Error extracting memory: {e}")
-    finally:
-        loop.close()
 
 @socketio.on('send_message')
 def handle_user_message(data):
-    """
-    Handles a message sent from the React client.
-    'data' is expected to be {'text': 'user message content'}
-    """
     user_message = data.get('text', '')
     print(f"Received message: {user_message}")
 
     session_id = request.sid
-    loop = asyncio.new_event_loop()
-    asyncio.set_event_loop(loop)
+    set_current_sid(session_id)
     try:
-        bot_response, audio = loop.run_until_complete(
+        bot_response, audio = run_async(
             get_message_response(user_message, session_id)
         )
         print(f"Bot response: {bot_response}")
@@ -61,31 +60,22 @@ def handle_user_message(data):
     except Exception as e:
         print("Exception: ", e)
         emit('message', {'user': 'Bot', 'text': "Sorry, I'm having trouble responding right now."}, broadcast=False)
-    finally:
-        loop.close()
 
 
 @socketio.on('send_audio')
 def handle_audio(data):
-    """
-    Handles audio data sent from the client.
-    Echoes the audio back to the client.
-    """
     print("Received audio data")
     session_id = request.sid
-    loop = asyncio.new_event_loop()
-    asyncio.set_event_loop(loop)
+    set_current_sid(session_id)
     try:
-        bot_response, audio = loop.run_until_complete(
+        bot_response, audio = run_async(
             get_voice_response(data, session_id)
         )
         emit('message', {'user': 'Bot', 'text': bot_response}, broadcast=False)
         emit('audio', audio, broadcast=False)
     except Exception as e:
         print(f"Error processing audio: {e}")
-        emit('message', {'user': 'System', 'text': f"Error processing audio: {e}"}, broadcast=False)
-    finally:
-        loop.close()
+        emit('message', {'user': 'Bot', 'text': "Sorry, I'm having trouble processing your audio right now."}, broadcast=False)
 
 
 #--- Run Server ---

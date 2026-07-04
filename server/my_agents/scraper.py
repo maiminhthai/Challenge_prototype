@@ -171,7 +171,7 @@ async def extract_results(page, limit=10, origin_address=None):
 
 async def scrape_google_maps(search_query, origin_address):
     async with async_playwright() as p:
-        browser = await p.chromium.launch(headless=False)
+        browser = await p.chromium.launch(headless=True)
         context = await browser.new_context()
         page = await context.new_page()
         
@@ -209,7 +209,7 @@ async def scrape_google_maps(search_query, origin_address):
 
 async def scrape_nearby(address, search_query):
     async with async_playwright() as p:
-        browser = await p.chromium.launch(headless=False)
+        browser = await p.chromium.launch(headless=True)
         context = await browser.new_context()
         page = await context.new_page()
         

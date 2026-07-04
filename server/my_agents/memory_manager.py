@@ -1,3 +1,4 @@
+import os
 import chromadb
 from dotenv import load_dotenv
 from langchain_chroma import Chroma
@@ -6,6 +7,7 @@ from langgraph.checkpoint.sqlite.aio import AsyncSqliteSaver
 
 load_dotenv()
 
+os.makedirs("db", exist_ok=True)
 chroma_client = chromadb.PersistentClient(path="db/chroma_db")
 
 collection_name = "user_memory"
