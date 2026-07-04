@@ -2,7 +2,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import io from 'socket.io-client';
 import './App.css';
 import { WavRecorder } from './WavRecorder';
-import Context from './contexts/Context';
+import Context from './contexts/context';
 import TopBar from './components/TopBar';
 import BottomBar from './components/BottomBar';
 import LeftPanel from './components/LeftPanel';
