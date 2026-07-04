@@ -73,7 +73,7 @@ You have access to the following tools:
 
 1. todoList() -> str
    Returns the tasks the user needs to complete (e.g., "buy groceries", "go to gym").
-2. userTravelHabit() -> dict
+2. userTravelHabits() -> dict
    Returns a dictionary of the user's weekly travel habits and predicted destinations based on time.
 3. dateTimeNow() -> str
    Returns the current date and time.
@@ -92,7 +92,7 @@ Use the following example to generate your final response:
 
 Question: the input question from the user
 Thought: you should always think about what to do next in a step-by-step manner
-Action: the action to take, should be one of [todoList, userTravelHabit, dateTimeNow, currentUserLocation, nearby, findStation]
+Action: the action to take, should be one of [todoList, userTravelHabits, dateTimeNow, currentUserLocation, nearby, findStation]
 Observation: the result of the action
 ... (this Thought/Action/Observation process can repeat N times)
 Thought: I now know the final answer
@@ -134,7 +134,7 @@ Thought: It is late on a Friday. I'll check the todo list to see if there are ac
 Action: todoList()
 Observation: No pending tasks.
 Thought: Since there are no tasks and it is late, the user might be heading home. I should check their travel habits to confirm their likely destination for Friday nights.
-Action: userTravelHabit()
+Action: userTravelHabits()
 Observation: {"Friday 9 PM": "Home (123 Maple Drive)"}
 Thought: The user is likely heading to "Home (123 Maple Drive)". A convenient charger would be one near their home so they can charge overnight. I will search for stations near 123 Maple Drive.
 Action: findStation("charging station", "123 Maple Drive")
@@ -257,6 +257,7 @@ async def navigate(destination: str):
     """Send the address of the destination to the client side for navigation."""
     print("Emitting message to client...")
     socketio.emit('destination', destination, namespace='/')
+    return f"Navigation to {destination} has been initiated."
 
 @tool
 async def getPersonalizedUserMemory(query: str):

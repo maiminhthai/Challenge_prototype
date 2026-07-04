@@ -3,7 +3,7 @@ from langchain_core.messages import SystemMessage
 from langgraph.graph import StateGraph, START, END, MessagesState
 from langchain_nvidia_ai_endpoints import ChatNVIDIA
 from langchain_openai import ChatOpenAI
-from langchain.agents import create_agent
+from langgraph.prebuilt import create_react_agent
 from pydantic import BaseModel, Field
 from dotenv import load_dotenv
 
@@ -21,22 +21,22 @@ orchestrator_llm = ChatNVIDIA(model="meta/llama-3.1-8b-instruct")
 #llm = ChatOpenAI(model="gpt-4o-mini")
 #orchestrator_llm = ChatOpenAI(model="gpt-4o-mini")
 
-driving_coach_node = create_agent(
+driving_coach_node = create_react_agent(
     llm,
     tools=driving_coach_tools,
-    system_prompt=DRIVING_COACH_PROMPT
+    prompt=DRIVING_COACH_PROMPT
 )
 
-charging_station_node = create_agent(
+charging_station_node = create_react_agent(
     llm,
     tools=charging_station_tools,
-    system_prompt=CHARGING_STATION_AGENT_PROMPT
+    prompt=CHARGING_STATION_AGENT_PROMPT
 )
 
-default_node = create_agent(
+default_node = create_react_agent(
     llm,
     tools=default_tools,
-    system_prompt=DEFAULT_PROMPT
+    prompt=DEFAULT_PROMPT
 )
 
 # Wrapper functions for the nodes since create_react_agent returns a compiled graph

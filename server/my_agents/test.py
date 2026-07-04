@@ -1,18 +1,12 @@
 import argparse
+import asyncio
 import pandas as pd
 from scraper import scrape_nearby
 
-if __name__ == "__main__":
-    parser = argparse.ArgumentParser(description="Google Maps Nearby Scraper")
-    parser.add_argument("--address", type=str, required=True, help="Target Address (Start Point)")
-    parser.add_argument("--query", type=str, required=True, help="Category to search (e.g. 'restaurants')")
-    args = parser.parse_args()
-    
-import asyncio
 
 async def main(address, query):
     data = await scrape_nearby(address, query)
-    
+
     # Save to CSV
     if data:
         df = pd.DataFrame(data)
@@ -26,5 +20,5 @@ if __name__ == "__main__":
     parser.add_argument("--address", type=str, required=True, help="Target Address (Start Point)")
     parser.add_argument("--query", type=str, required=True, help="Category to search (e.g. 'restaurants')")
     args = parser.parse_args()
-    
+
     asyncio.run(main(args.address, args.query))

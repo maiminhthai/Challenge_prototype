@@ -1,5 +1,4 @@
 from playwright.async_api import async_playwright
-import time
 import asyncio
 
 async def handle_consent(page):
