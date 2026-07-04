@@ -18,7 +18,7 @@ Keep the tone friendly and motivational.
 """
 
 @tool
-async def efficientDriving():
+def efficientDriving():
     """Returns best practices for energy-efficient driving."""
     return {
         "AC temperature": "between 15°C and 25°C",
@@ -26,7 +26,7 @@ async def efficientDriving():
     }
 
 @tool
-async def rangeIncrease(current_speed: int, current_ac_temperature: int) :
+def rangeIncrease(current_speed: int, current_ac_temperature: int):
     """Returns the range increase If the user were to follow the best practices based on the current speed and AC temperature."""
     return {
         "range increase": "between 1km and 2km",

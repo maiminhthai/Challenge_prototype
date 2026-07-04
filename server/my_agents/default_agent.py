@@ -79,7 +79,7 @@ You have access to:
 
 
 @tool
-async def userTravelHabits():
+def userTravelHabits():
     """Returns user's habitual routes and times. In the format of a dictionary.
     The dictionary has the following format:
     {
@@ -112,24 +112,24 @@ async def userTravelHabits():
     }
 
 @tool
-async def dateTimeNow():
+def dateTimeNow():
     """Returns the current date and time."""
     return "Tuesday, 5:42 PM"
 
 @tool
-async def currentUserLocation():
+def currentUserLocation():
     """Returns the current user location."""
     return WORK
 
 @tool
-async def todoList():
+def todoList():
     """Returns user's current to-do list."""
     return [
         {"task": "grocery shopping"},
     ]
 
 @tool
-async def getPersonalizedUserMemory(query: str):
+def getPersonalizedUserMemory(query: str):
     """Retrieves user's preferences, habits, and routines from memory based on the query."""
     return retrieve_user_memory(query)
 

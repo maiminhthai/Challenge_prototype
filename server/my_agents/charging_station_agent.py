@@ -152,7 +152,7 @@ When the user selects a charging station, use navigate(destination: str) to send
 """
 
 @tool
-async def todoList():
+def todoList():
     """Returns user's current to-do list."""
     print("calling todoList")
     return [
@@ -170,7 +170,7 @@ async def nearby(address: str, query: str):
         "Name": name,
         "Rating": rating,
         "URL": url,
-        "Address": address, 
+        "Address": address,
         "Phone": phone,
         "Website": website,
         "Charger Types": charger_types,
@@ -193,7 +193,7 @@ async def findStation(query: str, currentLocation: str):
         "Name": name,
         "Rating": rating,
         "URL": url,
-        "Address": address, 
+        "Address": address,
         "Phone": phone,
         "Website": website,
         "Charger Types": charger_types,
@@ -207,7 +207,7 @@ async def findStation(query: str, currentLocation: str):
     return await scrape_google_maps(query, currentLocation)
 
 @tool
-async def userTravelHabits():
+def userTravelHabits():
     """Returns user's habitual routes and times. In the format of a dictionary.
     The dictionary has the following format:
     {
@@ -241,19 +241,19 @@ async def userTravelHabits():
     }
 
 @tool
-async def dateTimeNow():
+def dateTimeNow():
     """Returns the current date and time."""
     print("calling dateTimeNow")
     return "Tuesday, 5:42 PM"
 
 @tool
-async def currentUserLocation():
+def currentUserLocation():
     """Returns the current user location."""
     print("calling currentUserLocation")
     return WORK
 
 @tool
-async def navigate(destination: str):
+def navigate(destination: str):
     """Send the address of the destination to the client side for navigation."""
     print("Emitting message to client...")
     sid = get_current_sid()
@@ -261,7 +261,7 @@ async def navigate(destination: str):
     return f"Navigation to {destination} has been initiated."
 
 @tool
-async def getPersonalizedUserMemory(query: str):
+def getPersonalizedUserMemory(query: str):
     """Retrieves user's preferences, habits, and routines from memory based on the query."""
     return retrieve_user_memory(query)
 
